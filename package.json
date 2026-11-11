@@ -1,0 +1,24 @@
+{
+  "name": "marathon-medal-map-display",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/prepare-assets.mjs && vite --host 127.0.0.1",
+    "build": "node scripts/prepare-assets.mjs && tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node scripts/prepare-assets.mjs && vitest run"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/three": "^0.181.0",
+    "jsdom": "^27.1.0",
+    "typescript": "latest",
+    "vite": "^7.2.0",
+    "vitest": "^4.0.0"
+  }
+}
