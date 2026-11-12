@@ -135,6 +135,7 @@ describe('print geometry and output', () => {
     }
     expect(result.dimensions.width).toBeLessThanOrEqual(141.001);
     expect(result.dimensions.height).toBeLessThanOrEqual(120.915);
+    expect(result.rim, 'A narrow 3D model gets a mounting rim for the frame lip').toBe(true);
     const red = result.parts.find((m) => m.name === 'title')!;
     expect(red).toBeInstanceOf(Mesh);
     const output = unzipSync(export3mf(result.group, result.source));
@@ -145,9 +146,9 @@ describe('print geometry and output', () => {
     const group = makePlate(initialDesign(), font, base);
     const credits = 'Community map — unofficial\nCC BY 4.0\nCourse creator';
     const model = unzipSync(export3mf(group, undefined, credits));
-    expect(strFromU8(model['Metadata/COMMUNITY-CREDITS.txt'])).toBe(credits);
+    expect(strFromU8(model['Metadata/CREDITS.txt'])).toBe(credits);
     const stls = unzipSync(exportStls(group, undefined, credits));
-    expect(strFromU8(stls['COMMUNITY-CREDITS.txt'])).toBe(credits);
+    expect(strFromU8(stls['CREDITS.txt'])).toBe(credits);
     disposeGroup(group);
   });
   it('rejects unsupported characters and illegibly long text', () => {
@@ -224,8 +225,8 @@ describe('personal GPX', () => {
     expect(track.points).toBe(4);
     expect(track.km).toBeGreaterThan(2);
     const projected = projectTrack(track).flat();
-    expect(Math.max(...projected.map((p) => Math.abs(p[0])))).toBeLessThanOrEqual(62.501);
-    expect(Math.max(...projected.map((p) => Math.abs(p[1])))).toBeLessThanOrEqual(52.501);
+    expect(Math.max(...projected.map((p) => Math.abs(p[0])))).toBeLessThanOrEqual(66.501);
+    expect(Math.max(...projected.map((p) => Math.abs(p[1])))).toBeLessThanOrEqual(58.501);
   });
   it('rejects malformed, empty and invalid-coordinate GPX', () => {
     for (const xml of ['not xml', '<gpx/>', gpx.replace('lat="59.90"', 'lat=""'), gpx.replace('lat="59.90"', 'lat="190"'), '<!DOCTYPE gpx><gpx/>']) {

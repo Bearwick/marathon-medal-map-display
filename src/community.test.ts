@@ -2,13 +2,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { readFileSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { initialDesign } from './data';
-import { fetchCommunityFile, matchingCourses, parseCatalogue, proposalIssueUrl, repositoryUrl, validateProposal } from './community';
+import { distanceKm, initialDesign } from './data';
+import { parseGpx } from './gpx';
+import { editionWarning, fetchCommunityFile, matchingCourses, parseCatalogue, proposalIssueUrl, repositoryUrl, validateProposal } from './community';
 import type { CommunityCourse, Proposal } from './community';
 import { MAX_MAP_FILE_BYTES } from './import';
 
 const course: CommunityCourse = {
-  id: 'oslo-2026-marathon', raceId: 'oslo', year: 2026, distanceKm: 42.195,
+  id: 'oslo-2026-marathon', raceId: 'oslo', curation: 'community', year: 2026, distanceKm: 42.195,
   title: 'Oslo community course', sourceUrl: 'https://example.org/course',
   reviewUrl: `${repositoryUrl}/issues/1`, license: 'CC BY 4.0',
   attribution: 'Test fixture only; not a published map.', notes: 'Inspect the course.',
@@ -31,18 +32,31 @@ describe('curated community catalogue', () => {
       }
     }
   });
-  it('matches only the exact race, year and official distance', () => {
-    const catalogue = parseCatalogue([course]);
+  it('bundles curated GPX that parses, has no timestamps and matches the official distance within 3%', () => {
+    const catalogue = parseCatalogue(JSON.parse(readFileSync('public/community/catalogue.json', 'utf8')));
+    expect(catalogue.some((item) => item.curation === 'maintainer')).toBe(true);
+    for (const item of catalogue.filter((entry) => entry.files.gpx)) {
+      const xml = readFileSync(resolve('public/community', item.files.gpx!), 'utf8');
+      expect(xml).not.toMatch(/<time>/);
+      const track = parseGpx(xml, item.title);
+      expect(Math.abs(track.km - item.distanceKm) / item.distanceKm, item.id).toBeLessThan(0.03);
+    }
+  });
+  it('matches race and official distance, ranking the exact edition before older and newer ones', () => {
+    const older = { ...course, id: 'oslo-2024', year: 2024 }, old = { ...course, id: 'oslo-2025', year: 2025 }, newer = { ...course, id: 'oslo-2027', year: 2027 };
+    const catalogue = parseCatalogue([newer, older, course, old]);
     const design = initialDesign();
-    expect(matchingCourses(catalogue, design)).toHaveLength(1);
+    expect(matchingCourses(catalogue, design).map((c) => c.id)).toEqual(['oslo-2026-marathon', 'oslo-2025', 'oslo-2024', 'oslo-2027']);
+    expect(editionWarning(catalogue[2], design)).toBe('');
     design.date = '2025-09-12';
-    expect(matchingCourses(catalogue, design)).toHaveLength(0);
+    expect(matchingCourses(catalogue, design)[0].id).toBe('oslo-2025');
+    expect(editionWarning(catalogue[2], design)).toContain('may differ from your 2025 edition');
     design.date = '2026-09-12'; design.raceId = 'helsinki';
     expect(matchingCourses(catalogue, design)).toHaveLength(0);
     design.raceId = 'oslo'; design.distanceId = 'half';
     expect(matchingCourses(catalogue, design)).toHaveLength(0);
     design.distanceId = 'custom'; design.customKm = '42.195';
-    expect(matchingCourses(catalogue, design)).toHaveLength(1);
+    expect(matchingCourses(catalogue, design)).toHaveLength(4);
   });
   it('requires review, source, permission, unique IDs and safe local paths', () => {
     const invalid = [
@@ -56,6 +70,16 @@ describe('curated community catalogue', () => {
     ];
     for (const entry of invalid) expect(() => parseCatalogue([entry])).toThrow();
     expect(() => parseCatalogue([course, course])).toThrow('unique');
+  });
+  it('lets maintainer-curated courses omit a review link but validates dates and curation', () => {
+    const { reviewUrl: _omit, ...withoutReview } = course;
+    expect(() => parseCatalogue([{ ...withoutReview, curation: 'maintainer', date: '2026-04-20' }])).not.toThrow();
+    expect(() => parseCatalogue([withoutReview])).toThrow('review');
+    expect(() => parseCatalogue([{ ...withoutReview, curation: 'maintainer', reviewUrl: 'https://example.org/x' }])).toThrow('review');
+    expect(() => parseCatalogue([{ ...course, curation: 'official' }])).toThrow('curation');
+    for (const date of ['2025-04-20', '2026-02-30', '20-04-2026', 20260420]) expect(() => parseCatalogue([{ ...course, date }])).toThrow('date');
+    expect(parseCatalogue([{ ...course, curation: undefined }])[0].curation).toBe('community');
+    expect(distanceKm(initialDesign())).toBe(42.195);
   });
 });
 

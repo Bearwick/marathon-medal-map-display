@@ -1,14 +1,21 @@
 import { distanceKm, races } from './data';
 import type { Design } from './data';
 
+export type Curation = 'maintainer' | 'community';
+
 export interface CommunityCourse {
   id: string;
   raceId: string;
+  /** maintainer: added by the repository maintainer (e.g. traced from OpenStreetMap); community: reviewed proposal. */
+  curation: Curation;
   year: number;
+  /** Optional ISO race date of this edition, used to fill the plate date. */
+  date?: string;
   distanceKm: number;
   title: string;
   sourceUrl: string;
-  reviewUrl: string;
+  /** Required for community entries: the repository issue or pull request where it was reviewed. */
+  reviewUrl?: string;
   license: string;
   attribution: string;
   notes: string;
@@ -39,6 +46,11 @@ function httpsUrl(value: unknown): value is string {
   }
 }
 
+function validIsoDate(value: string): boolean {
+  const date = new Date(`${value}T12:00:00Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
@@ -56,7 +68,10 @@ export function parseCatalogue(value: unknown): CommunityCourse[] {
       if (typeof entry[key] !== 'string' || !entry[key].trim() || entry[key].length > 500) throw new Error(`Missing or invalid ${key} in ${entry.id}.`);
     }
     if (typeof entry.notes !== 'string' || entry.notes.length > 2000) throw new Error(`Invalid notes in ${entry.id}.`);
-    if (!httpsUrl(entry.sourceUrl) || !httpsUrl(entry.reviewUrl) || !new RegExp(`^${repositoryUrl}/(?:issues|pull)/[1-9]\\d*$`).test(entry.reviewUrl)) throw new Error(`Missing source or repository review link in ${entry.id}.`);
+    const curation: Curation = entry.curation === undefined ? 'community' : entry.curation === 'maintainer' || entry.curation === 'community' ? entry.curation : (() => { throw new Error(`Invalid curation in ${entry.id}.`); })();
+    const reviewed = httpsUrl(entry.reviewUrl) && new RegExp(`^${repositoryUrl}/(?:issues|pull)/[1-9]\\d*$`).test(entry.reviewUrl);
+    if (!httpsUrl(entry.sourceUrl) || (curation === 'community' ? !reviewed : entry.reviewUrl !== undefined && !reviewed)) throw new Error(`Missing source or repository review link in ${entry.id}.`);
+    if (entry.date !== undefined && (typeof entry.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(entry.date) || Number(entry.date.slice(0, 4)) !== entry.year || !validIsoDate(entry.date))) throw new Error(`Invalid edition date in ${entry.id}.`);
     if (!isRecord(entry.files) || (!entry.files.gpx && !entry.files.map)) throw new Error(`No files in ${entry.id}.`);
     const files: CommunityCourse['files'] = {};
     for (const key of ['gpx', 'map'] as const) {
@@ -66,18 +81,32 @@ export function parseCatalogue(value: unknown): CommunityCourse[] {
       files[key] = path;
     }
     return {
-      id: entry.id, raceId: String(entry.raceId), year: Number(entry.year),
-      distanceKm: entry.distanceKm, title: String(entry.title), sourceUrl: entry.sourceUrl,
-      reviewUrl: entry.reviewUrl, license: String(entry.license), attribution: String(entry.attribution),
+      id: entry.id, raceId: String(entry.raceId), curation, year: Number(entry.year),
+      ...(typeof entry.date === 'string' ? { date: entry.date } : {}),
+      distanceKm: entry.distanceKm, title: String(entry.title), sourceUrl: entry.sourceUrl as string,
+      reviewUrl: typeof entry.reviewUrl === 'string' ? entry.reviewUrl : undefined, license: String(entry.license), attribution: String(entry.attribution),
       notes: entry.notes, files,
     };
   });
 }
 
+/**
+ * Courses for the selected race and official distance, best first: the exact edition year, then the most
+ * recent earlier editions, then later ones. Courses change between editions, so callers must flag non-exact years.
+ */
 export function matchingCourses(courses: CommunityCourse[], design: Design): CommunityCourse[] {
   const year = Number(design.date.slice(0, 4));
   const km = distanceKm(design);
-  return courses.filter((course) => course.raceId === design.raceId && course.year === year && Math.abs(course.distanceKm - km) < 0.00001);
+  const rank = (course: CommunityCourse) => course.year === year ? 0 : course.year < year ? 1 + (year - course.year) : 1000 + course.year;
+  return courses
+    .filter((course) => course.raceId === design.raceId && Math.abs(course.distanceKm - km) < 0.00001)
+    .sort((a, b) => rank(a) - rank(b) || a.title.localeCompare(b.title));
+}
+
+/** Warning for a course whose edition differs from the plate's race date, or '' when it matches. */
+export function editionWarning(course: CommunityCourse, design: Design): string {
+  const year = Number(design.date.slice(0, 4));
+  return course.year === year ? '' : `${course.year} course — may differ from your ${Number.isFinite(year) ? year : 'selected'} edition.`;
 }
 
 export function validateProposal(proposal: Proposal): void {

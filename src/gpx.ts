@@ -1,3 +1,10 @@
+import { FrameProjection, frameForPoints } from './projection';
+import type { Frame, LonLat } from './projection';
+
+export const MAX_GPX_MB = 12;
+export const MAX_GPX_BYTES = MAX_GPX_MB * 1024 * 1024;
+export const MAX_GPX_POINTS = 50_000;
+
 export interface Track {
   name: string;
   segments: [number, number][][];
@@ -7,7 +14,7 @@ export interface Track {
 }
 
 export function parseGpx(xml: string, fallbackName: string): Track {
-  if (xml.length > 12 * 1024 * 1024) throw new Error('GPX files must be smaller than 12 MB.');
+  if (xml.length > MAX_GPX_BYTES) throw new Error(`GPX files must be smaller than ${MAX_GPX_MB} MB.`);
   if (/<!DOCTYPE|<!ENTITY/i.test(xml)) throw new Error('GPX files with document types or entities are not supported.');
   const doc = new DOMParser().parseFromString(xml, 'application/xml');
   if (doc.querySelector('parsererror') || doc.documentElement.localName !== 'gpx') throw new Error('This is not a valid GPX file.');
@@ -23,7 +30,7 @@ export function parseGpx(xml: string, fallbackName: string): Track {
       if (!point.hasAttribute('lat') || !point.hasAttribute('lon') || !point.getAttribute('lat')?.trim() || !point.getAttribute('lon')?.trim() || !Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
         throw new Error('GPX contains an invalid latitude or longitude.');
       }
-      if (++points > 50000) throw new Error('Use a GPX with at most 50,000 points. Simplify your track before uploading.');
+      if (++points > MAX_GPX_POINTS) throw new Error('Use a GPX with at most 50,000 points. Simplify your track before uploading.');
       const previous = segment.at(-1);
       if (previous) km += haversine(previous, [lat, lon]);
       segment.push([lat, lon]);
@@ -42,20 +49,14 @@ function haversine(a: [number, number], b: [number, number]): number {
   return 12742 * Math.asin(Math.sqrt(Math.min(1, h)));
 }
 
-export function projectTrack(track: Track): [number, number][][] {
-  const points = track.segments.flat();
-  const lat = points.reduce((sum, p) => sum + p[0], 0) / points.length;
-  const anchor = points[0][1];
-  const projected = track.segments.map((seg) => seg.map(([y, x]): [number, number] => {
-    const wrapped = ((x - anchor + 540) % 360) - 180;
-    return [wrapped * Math.cos(lat * Math.PI / 180), y - lat];
-  }));
-  const flat = projected.flat();
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  for (const [x, y] of flat) {
-    minX = Math.min(minX, x); maxX = Math.max(maxX, x);
-    minY = Math.min(minY, y); maxY = Math.max(maxY, y);
-  }
-  const scale = Math.min(125 / Math.max(maxX - minX, 1e-8), 105 / Math.max(maxY - minY, 1e-8));
-  return projected.map((seg) => seg.map(([x, y]) => [(x - (minX + maxX) / 2) * scale, (y - (minY + maxY) / 2) * scale]));
+/** Track points as [longitude, latitude] pairs, per segment. */
+export function trackLonLat(track: Track): LonLat[][] {
+  return track.segments.map((segment) => segment.map(([lat, lon]): LonLat => [lon, lat]));
+}
+
+/** Projects the track into printed millimetres. Without a frame, a north-up frame is fitted to the track. */
+export function projectTrack(track: Track, frame?: Frame): [number, number][][] {
+  const segments = trackLonLat(track);
+  const projection = new FrameProjection(frame ?? frameForPoints(segments.flat(), 0, 0.04));
+  return segments.map((segment) => segment.map((point) => projection.toLocal(point)));
 }

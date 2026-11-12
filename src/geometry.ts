@@ -2,15 +2,14 @@ import { Box3, BoxGeometry, BufferGeometry, CylinderGeometry, ExtrudeGeometry, F
 import type { Font } from 'three/addons/loaders/FontLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { ColourKey, Design, KitCounts, ResultKey } from './data';
-import { dateText, distanceKm, kitCharacters, paceText, resultKeys, validateDesign, validateResults } from './data';
+import { dateText, distanceText, kitCharacters, paceText, resultKeys, unitLabel, validateDesign, validateResults } from './data';
 import { projectTrack } from './gpx';
 import type { Track } from './gpx';
 
-export const PLATE_WIDTH = 143;
-export const PLATE_HEIGHT = 222;
-export const MAP_WIDTH = 141;
-export const MAP_HEIGHT = 120.91362762451172;
-export const BASE_HEIGHT = 3.5;
+import { BASE_HEIGHT, MAP_HEIGHT, MAP_RIM_MAX_THICKNESS, MAP_TILE_HEIGHT, MAP_TILE_WIDTH, MAP_WIDTH } from './dimensions';
+import type { Frame } from './projection';
+
+export { BASE_HEIGHT, MAP_HEIGHT, MAP_MAX_DEPTH, MAP_TILE_HEIGHT, MAP_TILE_WIDTH, MAP_WIDTH, PLATE_HEIGHT, PLATE_WIDTH } from './dimensions';
 
 export function part(name: string, geometry: BufferGeometry, colour: string): Mesh {
   const mesh = new Mesh(geometry, new MeshStandardMaterial({ color: colour, roughness: 0.78, metalness: 0 }));
@@ -20,7 +19,7 @@ export function part(name: string, geometry: BufferGeometry, colour: string): Me
 
 function text(font: Font, value: string, size: number, maxWidth: number, x: number, y: number, z: number): BufferGeometry {
   for (const character of value) {
-    if (!font.data.glyphs[character]) throw new Error(`The print font does not support “${character}”. Please use another character.`);
+    if (!font.data.glyphs[character]) throw new Error(`The print font does not support “${character}”. Choose a Droid font under Colours & font, or use another character.`);
   }
   const extruded = new ExtrudeGeometry(font.generateShapes(value, size), { depth: 0.8, bevelEnabled: false, curveSegments: 6 });
   const geometry = closeTextSeams(extruded);
@@ -109,13 +108,12 @@ export function makePlate(design: Design, font: Font, originalBase: BufferGeomet
   addText('title', design.title.toUpperCase(), 8.5, 120, -60, -49);
   addText('location', design.location.toUpperCase(), 5.5, 120, -60, -62);
   addText('date', dateText(design.date), 3.6, 120, -60, -73);
-  const distance = `${Number(distanceKm(design).toFixed(3))}K`;
-  addText('distance', distance, 6, 27, -60, -94);
-  addText('distance', 'DIST / KM', 2.5, 27, -60, -103);
+  addText('distance', distanceText(design), 6, 27, -60, -94);
+  addText('distance', `DIST / ${unitLabel(design)}`, 2.5, 27, -60, -103);
 
   const fields = [
     { key: 'time' as const, label: 'TIME', value: design.time },
-    { key: 'pace' as const, label: 'PACE / KM', value: design.placements.pace === 'attached' ? paceText(design) : '' },
+    { key: 'pace' as const, label: `PACE / ${unitLabel(design)}`, value: design.placements.pace === 'attached' ? paceText(design) : '' },
     { key: 'bib' as const, label: 'BIB', value: `#${design.bib}` },
   ];
   fields.forEach(({ key, label, value }, i) => {
@@ -181,14 +179,14 @@ export function normalizeBase(geometry: BufferGeometry): BufferGeometry {
   return geometry;
 }
 
-export function makeRoutePreview(track: Track, colour: string, baseColour: string): Group {
+export function makeRoutePreview(track: Track, colour: string, baseColour: string, frame?: Frame): Group {
   const group = new Group();
   group.name = 'GPX schematic — no geographic detail';
   const base = new BoxGeometry(MAP_WIDTH, MAP_HEIGHT, 2);
   base.translate(0, 0, 1);
   group.add(part('Schematic tile', base, baseColour));
   const geometries: BufferGeometry[] = [];
-  for (const segment of projectTrack(track)) {
+  for (const segment of clipPolylines(projectTrack(track, frame), MAP_WIDTH / 2, MAP_HEIGHT / 2)) {
     // At most about 2,000 rendered links; original GPX remains unchanged for export.
     const step = Math.max(1, Math.ceil(segment.length / 2000));
     const points = segment.filter((_, i) => i % step === 0 || i === segment.length - 1);
@@ -215,17 +213,91 @@ export function makeRoutePreview(track: Track, colour: string, baseColour: strin
   return group;
 }
 
+/**
+ * Places a map flat on Z=0, centred. Maps that already fit the frame tile keep their size; larger maps are
+ * shrunk to fit the tile and maps smaller than the visible window are enlarged to fill it (aspect preserved).
+ */
 export function fitMap(group: Group): { width: number; height: number; depth: number } {
   group.updateMatrixWorld(true);
   const box = new Box3().setFromObject(group);
   const size = box.getSize(new Vector3());
   if (![size.x, size.y, size.z].every(Number.isFinite) || size.x <= 0 || size.y <= 0 || size.z <= 0) throw new Error('The map must contain a solid, finite 3D model with Z pointing up.');
-  const scale = Math.min(MAP_WIDTH / size.x, MAP_HEIGHT / size.y);
+  const tolerance = 1.0005;
+  let scale = 1;
+  if (size.x > MAP_TILE_WIDTH * tolerance || size.y > MAP_TILE_HEIGHT * tolerance) scale = Math.min(MAP_TILE_WIDTH / size.x, MAP_TILE_HEIGHT / size.y);
+  else if (size.x < MAP_WIDTH / tolerance && size.y < MAP_HEIGHT / tolerance) scale = Math.min(MAP_WIDTH / size.x, MAP_HEIGHT / size.y);
   const center = box.getCenter(new Vector3());
   group.scale.multiplyScalar(scale);
   group.position.set(-center.x * scale, -center.y * scale, -box.min.z * scale);
   group.updateMatrixWorld(true);
   return { width: size.x * scale, height: size.y * scale, depth: size.z * scale };
+}
+
+/** True when a map's footprint is too small for the frame's side lips to hold it. */
+export function needsMountingRim(dimensions: { width: number; height: number }): boolean {
+  return dimensions.width < MAP_TILE_WIDTH - 2 || dimensions.height < MAP_TILE_HEIGHT - 2;
+}
+
+/**
+ * Flat ring from the map's footprint (with 0.5 mm overlap) out to the full frame tile, thin enough to slide
+ * under the frame lip. Returned as triangle positions so callers can merge it into a base part.
+ */
+export function mountingRimGeometry(innerWidth: number, innerHeight: number, thickness = 1.6): BufferGeometry {
+  const t = Math.min(thickness, MAP_RIM_MAX_THICKNESS);
+  const ow = MAP_TILE_WIDTH / 2, oh = MAP_TILE_HEIGHT / 2;
+  const iw = Math.min(innerWidth / 2 - 0.5, ow - 1), ih = Math.min(innerHeight / 2 - 0.5, oh - 1);
+  const pieces = [
+    [-ow, ih, ow, oh], [-ow, -oh, ow, -ih], // top and bottom strips
+    [-ow, -ih, -iw, ih], [iw, -ih, ow, ih], // sides
+  ].map(([x0, y0, x1, y1]) => {
+    const box = new BoxGeometry(x1 - x0, y1 - y0, t);
+    box.translate((x0 + x1) / 2, (y0 + y1) / 2, t / 2);
+    return box.toNonIndexed();
+  });
+  const merged = mergeGeometries(pieces)!;
+  pieces.forEach((g) => g.dispose());
+  return merged;
+}
+
+/** Adds a mounting rim part to an already fitted map when it is smaller than the frame tile. */
+export function addMountingRim(group: Group, dimensions: { width: number; height: number }, colour = '#c9c7bc'): boolean {
+  if (!needsMountingRim(dimensions)) return false;
+  const rim = part('Mounting rim', mountingRimGeometry(dimensions.width, dimensions.height), colour);
+  // The fitted group is scaled; add the rim in world units by compensating for the group transform.
+  group.updateMatrixWorld(true);
+  rim.applyMatrix4(group.matrixWorld.clone().invert());
+  group.add(rim);
+  return true;
+}
+
+/** Clips polylines to an axis-aligned rectangle centred on the origin. */
+export function clipPolylines(lines: [number, number][][], halfWidth: number, halfHeight: number): [number, number][][] {
+  const out: [number, number][][] = [];
+  for (const line of lines) {
+    let current: [number, number][] = [];
+    for (let i = 1; i < line.length; i++) {
+      const clipped = clipSegment(line[i - 1], line[i], halfWidth, halfHeight);
+      if (!clipped) { if (current.length > 1) out.push(current); current = []; continue; }
+      const [a, b] = clipped;
+      const last = current.at(-1);
+      if (!last || last[0] !== a[0] || last[1] !== a[1]) { if (current.length > 1) out.push(current); current = [a]; }
+      current.push(b);
+    }
+    if (current.length > 1) out.push(current);
+  }
+  return out;
+}
+
+function clipSegment(a: [number, number], b: [number, number], hw: number, hh: number): [[number, number], [number, number]] | undefined {
+  // Liang–Barsky.
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  let t0 = 0, t1 = 1;
+  for (const [p, q] of [[-dx, a[0] + hw], [dx, hw - a[0]], [-dy, a[1] + hh], [dy, hh - a[1]]]) {
+    if (p === 0) { if (q < 0) return undefined; continue; }
+    const r = q / p;
+    if (p < 0) { if (r > t1) return undefined; if (r > t0) t0 = r; } else { if (r < t0) return undefined; if (r < t1) t1 = r; }
+  }
+  return [[a[0] + t0 * dx, a[1] + t0 * dy], [a[0] + t1 * dx, a[1] + t1 * dy]];
 }
 
 export function disposeGroup(group: Group): void {

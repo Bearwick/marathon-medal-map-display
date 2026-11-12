@@ -2,7 +2,8 @@ import { Box3, Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { ThreeMFLoader } from 'three/addons/loaders/3MFLoader.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { strFromU8, unzipSync } from 'fflate';
-import { disposeGroup, fitMap, part } from './geometry';
+import { addMountingRim, disposeGroup, fitMap, part } from './geometry';
+import { MAP_MAX_DEPTH, MAP_TILE_HEIGHT, MAP_TILE_WIDTH } from './dimensions';
 
 export const MAX_MAP_FILE_MB = 100;
 export const MAX_MAP_FILE_BYTES = MAX_MAP_FILE_MB * 1024 * 1024;
@@ -27,6 +28,12 @@ export interface ImportedMap {
   source: Uint8Array | undefined;
   parts: Mesh[];
   dimensions: { width: number; height: number; depth: number };
+  /** Set for maps generated in the browser from a GPX and map data. */
+  generated?: { attribution: string; settings: string; key: string };
+  /** True when a flat mounting rim was added so the frame lip can hold the map. */
+  rim?: boolean;
+  /** Warnings to show next to the map (for example, depth above the frame front). */
+  warnings: string[];
 }
 
 export function importMap(buffer: ArrayBuffer, filename: string): ImportedMap {
@@ -91,7 +98,11 @@ export function importMap(buffer: ArrayBuffer, filename: string): ImportedMap {
     if (size.z > Math.max(size.x, size.y)) throw new Error('The map appears upright. Export it flat with Z pointing up.');
     group.name = 'Custom detailed map';
     const dimensions = fitMap(group);
-    return { group, source, parts, dimensions };
+    const rim = addMountingRim(group, dimensions);
+    const warnings: string[] = [];
+    if (rim) warnings.push('A thin mounting rim was added so the frame lip can hold this map. Its colour follows the base.');
+    if (dimensions.depth > MAP_MAX_DEPTH + 0.01) warnings.push(`The map is ${dimensions.depth.toFixed(1)} mm deep and will stand ${(dimensions.depth - MAP_MAX_DEPTH).toFixed(1)} mm proud of the frame front.`);
+    return { group, source, parts: rim ? [...parts, group.children.at(-1) as Mesh] : parts, dimensions: { ...dimensions, width: rim ? MAP_TILE_WIDTH : dimensions.width, height: rim ? MAP_TILE_HEIGHT : dimensions.height }, rim, warnings };
   } catch (error) {
     disposeGroup(group);
     throw error;
