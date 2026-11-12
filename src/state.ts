@@ -30,6 +30,8 @@ export interface StudioState {
   communityCourses: CommunityCourse[];
   catalogueState: 'loading' | 'ready' | 'error';
   catalogueError: string;
+  /** Invalid catalogue entries that were skipped (shown to the user; the valid ones still load). */
+  catalogueWarnings: string[];
   activeCourse?: CommunityCourse;
   /** Course to restore from a saved design or shared link once the catalogue has loaded. */
   pendingCourseId?: string;
@@ -56,7 +58,7 @@ export interface StudioState {
 export function createState(design: Design, mapOptions: MapOptions, frame?: Frame, pendingCourseId?: string): StudioState {
   return {
     design, mapOptions, frame, pendingCourseId, active: 'plate', assembled: false, fonts: new Map(),
-    communityCourses: [], catalogueState: 'loading', catalogueError: '', proposalError: '',
+    communityCourses: [], catalogueState: 'loading', catalogueError: '', catalogueWarnings: [], proposalError: '',
     plateError: '', mapError: '', glueError: '', completeError: '', completeCharacters: 'kit', completeExporting: false,
     generating: false, generateStatus: '', pickerError: '', notice: '',
     kitField: 'time', kitCounts: Object.fromEntries([...kitCharacters].map((character) => [character, 2])),

@@ -1,4 +1,4 @@
-import { distanceKm, races } from './data';
+import { distanceKm, distances, races } from './data';
 import type { Design } from './data';
 
 export type Curation = 'maintainer' | 'community';
@@ -55,39 +55,98 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function parseCatalogue(value: unknown): CommunityCourse[] {
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const FILE_PATH = /^(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(gpx|3mf|stl)$/;
+
+/** Validates one catalogue entry. `label` names it in errors (its id, or its position when the id is missing). */
+function parseCatalogueEntry(entry: unknown, label: string, ids: Set<string>): CommunityCourse {
+  if (!isRecord(entry)) throw new Error(`${label}: each entry must be an object.`);
+  if (typeof entry.id !== 'string' || !SLUG.test(entry.id)) {
+    const hint = 'raceName' in entry || Array.isArray(entry.files) ? ' It looks like a proposal.json — use the catalogue-entry.json from the proposal ZIP instead (see README).' : '';
+    throw new Error(`${label}: missing or invalid id. Use a unique lowercase slug such as "oslo-2026-half".${hint}`);
+  }
+  const id = entry.id;
+  if (ids.has(id)) throw new Error(`${label}: duplicate id "${id}". Course ids must be unique.`);
+  ids.add(id);
+  if (!races.some((race) => race.id === entry.raceId)) throw new Error(`Unknown race in community course ${id}. Add the race to src/data.ts first.`);
+  if (!Number.isInteger(entry.year) || Number(entry.year) < 1900 || Number(entry.year) > 2100) throw new Error(`Invalid edition in ${id}.`);
+  if (typeof entry.distanceKm !== 'number' || !Number.isFinite(entry.distanceKm) || entry.distanceKm < 0.1 || entry.distanceKm > 1000) throw new Error(`Invalid distance in ${id}.`);
+  for (const key of ['title', 'license', 'attribution'] as const) {
+    if (typeof entry[key] !== 'string' || !entry[key].trim() || entry[key].length > 500) throw new Error(`Missing or invalid ${key} in ${id}.`);
+  }
+  if (typeof entry.notes !== 'string' || entry.notes.length > 2000) throw new Error(`Invalid notes in ${id}.`);
+  const curation: Curation = entry.curation === undefined ? 'community' : entry.curation === 'maintainer' || entry.curation === 'community' ? entry.curation : (() => { throw new Error(`Invalid curation in ${id} (use "maintainer" or "community").`); })();
+  const reviewed = httpsUrl(entry.reviewUrl) && new RegExp(`^${repositoryUrl}/(?:issues|pull)/[1-9]\\d*$`).test(entry.reviewUrl);
+  if (!httpsUrl(entry.sourceUrl)) throw new Error(`Missing or non-HTTPS source link in ${id}.`);
+  if (curation === 'community' ? !reviewed : entry.reviewUrl !== undefined && !reviewed) throw new Error(`Missing repository review link in ${id}: community entries need the issue or pull request URL in this repository.`);
+  if (entry.date !== undefined && (typeof entry.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(entry.date) || Number(entry.date.slice(0, 4)) !== entry.year || !validIsoDate(entry.date))) throw new Error(`Invalid edition date in ${id} (YYYY-MM-DD within the edition year).`);
+  if (!isRecord(entry.files) || (!entry.files.gpx && !entry.files.map)) throw new Error(`No files in ${id}: use "files": { "gpx": "<folder>/route.gpx" } and/or "map".`);
+  const files: CommunityCourse['files'] = {};
+  const folder = `${String(entry.raceId)}/${id}/`;
+  for (const key of ['gpx', 'map'] as const) {
+    const path = entry.files[key];
+    if (path === undefined) continue;
+    if (typeof path !== 'string' || !FILE_PATH.test(path) || (key === 'gpx' ? !path.endsWith('.gpx') : !/\.(3mf|stl)$/.test(path))) throw new Error(`Invalid ${key} file path in ${id}.`);
+    if (!path.startsWith(folder) || path.slice(folder.length).includes('/')) throw new Error(`Invalid ${key} file path in ${id}: courses live in one folder per race, e.g. "${folder}${key === 'gpx' ? 'route.gpx' : 'map.3mf'}".`);
+    files[key] = path;
+  }
+  return {
+    id, raceId: String(entry.raceId), curation, year: Number(entry.year),
+    ...(typeof entry.date === 'string' ? { date: entry.date } : {}),
+    distanceKm: entry.distanceKm, title: String(entry.title), sourceUrl: entry.sourceUrl as string,
+    reviewUrl: typeof entry.reviewUrl === 'string' ? entry.reviewUrl : undefined, license: String(entry.license), attribution: String(entry.attribution),
+    notes: entry.notes, files,
+  };
+}
+
+/** Parses the catalogue, keeping valid entries and reporting invalid ones (used by the app so one bad entry hides nothing else). */
+export function parseCatalogueEntries(value: unknown): { courses: CommunityCourse[]; errors: string[] } {
   if (!Array.isArray(value)) throw new Error('Community catalogue must be a list.');
   const ids = new Set<string>();
-  return value.map((entry: unknown) => {
-    if (!isRecord(entry) || typeof entry.id !== 'string' || !/^[a-z0-9-]+$/.test(entry.id) || ids.has(entry.id)) throw new Error('Community course IDs must be unique slugs.');
-    ids.add(entry.id);
-    if (!races.some((race) => race.id === entry.raceId)) throw new Error(`Unknown race in community course ${entry.id}.`);
-    if (!Number.isInteger(entry.year) || Number(entry.year) < 1900 || Number(entry.year) > 2100) throw new Error(`Invalid edition in ${entry.id}.`);
-    if (typeof entry.distanceKm !== 'number' || !Number.isFinite(entry.distanceKm) || entry.distanceKm < 0.1 || entry.distanceKm > 1000) throw new Error(`Invalid distance in ${entry.id}.`);
-    for (const key of ['title', 'license', 'attribution'] as const) {
-      if (typeof entry[key] !== 'string' || !entry[key].trim() || entry[key].length > 500) throw new Error(`Missing or invalid ${key} in ${entry.id}.`);
-    }
-    if (typeof entry.notes !== 'string' || entry.notes.length > 2000) throw new Error(`Invalid notes in ${entry.id}.`);
-    const curation: Curation = entry.curation === undefined ? 'community' : entry.curation === 'maintainer' || entry.curation === 'community' ? entry.curation : (() => { throw new Error(`Invalid curation in ${entry.id}.`); })();
-    const reviewed = httpsUrl(entry.reviewUrl) && new RegExp(`^${repositoryUrl}/(?:issues|pull)/[1-9]\\d*$`).test(entry.reviewUrl);
-    if (!httpsUrl(entry.sourceUrl) || (curation === 'community' ? !reviewed : entry.reviewUrl !== undefined && !reviewed)) throw new Error(`Missing source or repository review link in ${entry.id}.`);
-    if (entry.date !== undefined && (typeof entry.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(entry.date) || Number(entry.date.slice(0, 4)) !== entry.year || !validIsoDate(entry.date))) throw new Error(`Invalid edition date in ${entry.id}.`);
-    if (!isRecord(entry.files) || (!entry.files.gpx && !entry.files.map)) throw new Error(`No files in ${entry.id}.`);
-    const files: CommunityCourse['files'] = {};
-    for (const key of ['gpx', 'map'] as const) {
-      const path = entry.files[key];
-      if (path === undefined) continue;
-      if (typeof path !== 'string' || !/^(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(gpx|3mf|stl)$/.test(path) || (key === 'gpx' ? !path.endsWith('.gpx') : !/\.(3mf|stl)$/.test(path))) throw new Error(`Invalid ${key} file path in ${entry.id}.`);
-      files[key] = path;
-    }
-    return {
-      id: entry.id, raceId: String(entry.raceId), curation, year: Number(entry.year),
-      ...(typeof entry.date === 'string' ? { date: entry.date } : {}),
-      distanceKm: entry.distanceKm, title: String(entry.title), sourceUrl: entry.sourceUrl as string,
-      reviewUrl: typeof entry.reviewUrl === 'string' ? entry.reviewUrl : undefined, license: String(entry.license), attribution: String(entry.attribution),
-      notes: entry.notes, files,
-    };
+  const courses: CommunityCourse[] = [];
+  const errors: string[] = [];
+  value.forEach((entry: unknown, index) => {
+    const label = isRecord(entry) && typeof entry.id === 'string' && entry.id ? `Entry ${index + 1} (${entry.id})` : `Entry ${index + 1}`;
+    try { courses.push(parseCatalogueEntry(entry, label, ids)); } catch (error) { errors.push(error instanceof Error ? error.message : String(error)); }
   });
+  return { courses, errors };
+}
+
+/** Strict parsing for tests and tooling: any invalid entry is an error. */
+export function parseCatalogue(value: unknown): CommunityCourse[] {
+  const { courses, errors } = parseCatalogueEntries(value);
+  if (errors.length) throw new Error(errors.join(' '));
+  return courses;
+}
+
+/** Folder for a race's courses: its catalogue race id, or a slug of the name for races not yet in src/data.ts. */
+export function raceFolder(raceId: string, raceName: string): string {
+  const letters: Record<string, string> = { ø: 'o', æ: 'ae', œ: 'oe', ß: 'ss', ł: 'l', đ: 'd', þ: 'th' };
+  return (raceId === 'custom' ? raceName : raceId).toLowerCase().replace(/[øæœßłđþ]/g, (c) => letters[c]).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'race';
+}
+
+/** Catalogue id for a proposal, e.g. "oslo-2026-half" or "my-race-2026-12-5km". */
+export function courseId(raceId: string, raceName: string, year: number, km: number): string {
+  const standard = distances.find((d) => d.id !== 'custom' && Math.abs(d.km - km) < 0.00001);
+  return `${raceFolder(raceId, raceName)}-${year}-${standard ? standard.id : `${String(km).replace('.', '-')}km`}`;
+}
+
+/**
+ * The catalogue entry a maintainer pastes into public/community/catalogue.json for a proposal — the same schema
+ * the app reads. Community entries need the review issue URL, which only exists after the issue is opened.
+ */
+export function catalogueEntryForProposal(proposal: Proposal, fileNames: string[]): Record<string, unknown> {
+  const id = courseId(proposal.raceId, proposal.raceName, proposal.year, proposal.distanceKm);
+  const folder = `${raceFolder(proposal.raceId, proposal.raceName)}/${id}`;
+  const gpx = fileNames.find((name) => name.endsWith('.gpx'));
+  const map = fileNames.find((name) => /\.(3mf|stl)$/.test(name));
+  return {
+    id, raceId: proposal.raceId, curation: 'community', year: proposal.year, distanceKm: proposal.distanceKm,
+    title: `${proposal.raceName.trim()} ${proposal.year} course`,
+    sourceUrl: proposal.sourceUrl, reviewUrl: `${repositoryUrl}/issues/ISSUE_NUMBER`,
+    license: proposal.license, attribution: proposal.attribution, notes: proposal.notes,
+    files: { ...(gpx ? { gpx: `${folder}/${gpx}` } : {}), ...(map ? { map: `${folder}/${map}` } : {}) },
+  };
 }
 
 /**
@@ -130,7 +189,7 @@ export function proposalIssueUrl(proposal: Proposal): string {
     `Redistribution licence / permission: ${proposal.license}`,
     `Attribution: ${proposal.attribution}`,
     `Known limitations: ${proposal.notes || 'None specified; reviewer must check.'}`,
-    `Files in proposal ZIP: ${proposal.files.join(', ')}`,
+    `Files in proposal ZIP: ${proposal.files.join(', ')} (in the ${raceFolder(proposal.raceId, proposal.raceName)}/${courseId(proposal.raceId, proposal.raceName, proposal.year, proposal.distanceKm)}/ folder, plus catalogue-entry.json)`,
     '',
     '- [x] I have permission to publish and redistribute these files with the stated credits.',
     '- [x] I have inspected the files and removed private locations, timestamps and personal data, including embedded 3MF source metadata.',
@@ -138,7 +197,7 @@ export function proposalIssueUrl(proposal: Proposal): string {
     '',
     '**Before submitting:** attach the downloaded proposal ZIP here. For a large ZIP, link to a publicly accessible download that the maintainer may redistribute. This app does not upload files or create an issue automatically.',
     '',
-    '**Maintainer:** review the attached files, edition, distance, privacy, licence, geometry and frame fit. Publish only by merging files and metadata into the curated catalogue. An issue or label alone never publishes a recommendation.',
+    '**Maintainer:** an automatic course intake report will be posted below. Complete its checklist (licence, edition, distance, privacy, geometry), then add the `approve-course` label to open a pull request. Only merging that pull request publishes the course.',
   ].join('\n\n');
   const url = new URL(`${repositoryUrl}/issues/new`);
   url.searchParams.set('template', 'community-map.md');

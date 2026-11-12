@@ -18,7 +18,7 @@ import { disposeGroup, makeGlueCharacters, makePlate, makeRoutePreview, normaliz
 import { MAX_GPX_BYTES, MAX_GPX_MB, parseGpx, trackLonLat } from './gpx';
 import { importMap, MAX_MAP_FILE_BYTES, validateMapFileSize } from './import';
 import { Viewer } from './viewer';
-import { fetchCommunityFile, matchingCourses, parseCatalogue, proposalIssueUrl, repositoryUrl, validateProposal } from './community';
+import { catalogueEntryForProposal, raceFolder, fetchCommunityFile, matchingCourses, parseCatalogueEntries, proposalIssueUrl, repositoryUrl, validateProposal } from './community';
 import type { CommunityCourse, Proposal } from './community';
 import { exportCompleteDisplay } from './complete';
 import { bestFrameForPoints } from './projection';
@@ -390,7 +390,10 @@ async function loadCatalogue(): Promise<void> {
   refresh();
   try {
     const bytes = await fetchCommunityFile('catalogue.json', 1024 * 1024);
-    state.communityCourses = parseCatalogue(JSON.parse(new TextDecoder().decode(bytes)));
+    const { courses, errors } = parseCatalogueEntries(JSON.parse(new TextDecoder().decode(bytes)));
+    state.communityCourses = courses;
+    state.catalogueWarnings = errors;
+    if (errors.length) console.warn(`Skipped ${errors.length} invalid course catalogue entr${errors.length === 1 ? 'y' : 'ies'}:`, errors);
     state.catalogueState = 'ready';
   } catch (error) {
     state.catalogueError = errorMessage(error);
@@ -465,6 +468,9 @@ async function switchTab(tab: Step): Promise<void> {
   clearTimeout(timer);
   rebuildPlate();
   state.active = tab;
+  // Make it shows the assembled display by default; the other steps show their own part.
+  state.assembled = tab === 'print';
+  if (!state.assembled && state.assembly) { disposeAssembly(state.assembly); state.assembly = undefined; }
   for (const button of app.querySelectorAll<HTMLButtonElement>('[data-tab]')) {
     const selected = button.dataset.tab === tab;
     button.classList.toggle('selected', selected);
@@ -675,20 +681,32 @@ app.addEventListener('submit', (event) => {
     if (!form.reportValidity()) return;
     const fields = new FormData(form);
     if (!['rights', 'privacy', 'public'].every((key) => fields.get(key) === 'on')) throw new Error('Confirm sharing permissions, privacy checks and public submission first.');
-    const files: Record<string, Uint8Array> = {};
-    if (state.track) files['route.gpx'] = strToU8(state.track.xml);
-    if (state.mapFile) files[state.mapFile.name] = state.mapFile.bytes;
+    const courseFiles: Record<string, Uint8Array> = {};
+    if (state.track) courseFiles['route.gpx'] = strToU8(state.track.xml);
+    if (state.mapFile) courseFiles[state.mapFile.name] = state.mapFile.bytes;
     const proposal: Proposal = {
       raceId: state.design.raceId, raceName: String(fields.get('raceName') ?? ''),
       year: Number(fields.get('year')), distanceKm: Number(fields.get('distanceKm')),
       sourceUrl: String(fields.get('sourceUrl') ?? ''), license: String(fields.get('license') ?? ''),
       attribution: String(fields.get('attribution') ?? ''), notes: String(fields.get('notes') ?? ''),
-      files: Object.keys(files),
+      files: Object.keys(courseFiles),
     };
     validateProposal(proposal);
     const issueUrl = proposalIssueUrl(proposal);
-    files['proposal.json'] = strToU8(JSON.stringify({ ...proposal, status: 'pending-review', unofficial: true }, null, 2));
-    files['SUBMISSION-INSTRUCTIONS.txt'] = strToU8(`Open ${repositoryUrl}/issues/new?template=community-map.md and attach this ZIP (or a public download link if too large). Copy proposal.json details into the issue if the prefilled form does not open. Nothing is published until a maintainer reviews and merges the files into the catalogue.\nThe original files have NOT been anonymized. Inspect private locations, timestamps and embedded 3MF source metadata before sharing. Retain all source credits and permissions.\n`);
+    // Same layout and schema as public/community/: copy the folder in and paste the entry into catalogue.json.
+    const entry = catalogueEntryForProposal(proposal, Object.keys(courseFiles));
+    const folder = `${raceFolder(proposal.raceId, proposal.raceName)}/${String(entry.id)}`;
+    const files: Record<string, Uint8Array> = Object.fromEntries(Object.entries(courseFiles).map(([name, bytes]) => [`${folder}/${name}`, bytes]));
+    files['catalogue-entry.json'] = strToU8(`${JSON.stringify(entry, null, 2)}\n`);
+    files['SUBMISSION-INSTRUCTIONS.txt'] = strToU8([
+      `Submitter: open ${repositoryUrl}/issues/new?template=community-map.md and attach this ZIP (or a public download link if too large). Nothing is published until a maintainer reviews and merges it.`,
+      'The original files have NOT been anonymized. Inspect private locations, waypoints, timestamps and embedded 3MF source metadata before sharing. Retain all source credits and permissions.',
+      '',
+      `Maintainer: add the label approve-course to the issue to open a pull request automatically, or run: npm run course:add -- <this ZIP> --issue <number>. Manually: copy ${folder}/ into public/community/ (one folder per race, one subfolder per course) and add catalogue-entry.json as a new item in public/community/catalogue.json.`,
+      'Replace ISSUE_NUMBER in reviewUrl with the review issue or pull request number (or set "curation": "maintainer" and remove reviewUrl for a course you add yourself).',
+      state.design.raceId === 'custom' ? 'The race is not in src/data.ts yet: add it there and set raceId to its id before publishing.' : '',
+      'Optionally add "date": "YYYY-MM-DD" for the edition. Then run npm test.',
+    ].filter((line, i, all) => line || all[i - 1]).join('\n') + '\n');
     download(zipSync(files, { level: 6 }), 'finishline-community-proposal.zip', 'application/zip');
     issueLink.href = issueUrl;
     issueLink.hidden = false;

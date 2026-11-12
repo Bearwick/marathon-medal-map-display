@@ -9,7 +9,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node scripts/prepare-assets.mjs && vitest run",
     "test:e2e": "playwright test",
-    "course:osm": "node scripts/osm-course-to-gpx.mjs"
+    "course:osm": "node scripts/osm-course-to-gpx.mjs",
+    "course:add": "node scripts/add-course.mjs"
   },
   "dependencies": {
     "@mapbox/vector-tile": "^2.0.5",

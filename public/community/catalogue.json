@@ -1,18 +1,48 @@
 [
-  {
-    "id": "boston-osm-marathon",
-    "raceId": "boston",
-    "curation": "maintainer",
-    "year": 2026,
-    "date": "2026-04-20",
-    "distanceKm": 42.195,
-    "title": "Boston Marathon course (OpenStreetMap)",
-    "sourceUrl": "https://www.openstreetmap.org/relation/11680552",
-    "license": "Open Database License (ODbL) 1.0",
-    "attribution": "© OpenStreetMap contributors",
-    "notes": "Traced from OpenStreetMap route relation 11680552 on 12 Nov 2026 with scripts/osm-course-to-gpx.mjs (5 m simplification, 42.38 km). Hopkinton to Boylston Street point-to-point course; not checked against the organizer's map for a specific edition.",
-    "files": {
-      "gpx": "boston-osm/route.gpx"
-    }
-  }
+	{
+		"id": "boston-osm-marathon",
+		"raceId": "boston",
+		"curation": "maintainer",
+		"year": 2026,
+		"date": "2026-04-20",
+		"distanceKm": 42.195,
+		"title": "Boston Marathon course (OpenStreetMap)",
+		"sourceUrl": "https://www.openstreetmap.org/relation/11680552",
+		"license": "Open Database License (ODbL) 1.0",
+		"attribution": "© OpenStreetMap contributors",
+		"notes": "Traced from OpenStreetMap route relation 11680552 on 12 Nov 2026 with scripts/osm-course-to-gpx.mjs (5 m simplification, 42.38 km). Hopkinton to Boylston Street point-to-point course; not checked against the organizer's map for a specific edition.",
+		"files": {
+			"gpx": "boston/boston-osm-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "oslo-2026-half",
+		"raceId": "oslo",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 21.0975,
+		"title": "Oslo Maraton 2026 half marathon course",
+		"sourceUrl": "https://oslomaraton.no/loypa-2/",
+		"license": "MIT",
+		"attribution": "No",
+		"notes": "",
+		"files": {
+			"gpx": "oslo/oslo-2026-half/route.gpx"
+		}
+	},
+	{
+		"id": "oslo-2026-marathon",
+		"raceId": "oslo",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Oslo Maraton 2026 course",
+		"sourceUrl": "https://oslomaraton.no/loypa-2/",
+		"license": "MIT",
+		"attribution": "None",
+		"notes": "",
+		"files": {
+			"gpx": "oslo/oslo-2026-marathon/route.gpx"
+		}
+	}
 ]
