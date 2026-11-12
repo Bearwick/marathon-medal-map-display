@@ -465,6 +465,9 @@ async function switchTab(tab: Step): Promise<void> {
   clearTimeout(timer);
   rebuildPlate();
   state.active = tab;
+  // Make it shows the assembled display by default; the other steps show their own part.
+  state.assembled = tab === 'print';
+  if (!state.assembled && state.assembly) { disposeAssembly(state.assembly); state.assembly = undefined; }
   for (const button of app.querySelectorAll<HTMLButtonElement>('[data-tab]')) {
     const selected = button.dataset.tab === tab;
     button.classList.toggle('selected', selected);

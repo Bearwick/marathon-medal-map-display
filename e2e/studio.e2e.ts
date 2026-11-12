@@ -41,11 +41,17 @@ test('designs a plate, generates a route map and downloads the complete display'
   await page.click('#assembled-view');
 
   await page.getByRole('tab', { name: /Make it/ }).click();
+  await expect(page.locator('#preview-type')).toHaveText('ASSEMBLED DISPLAY');
+  await expect(page.locator('#assembled-view')).toHaveAttribute('aria-pressed', 'true');
   const [download] = await Promise.all([page.waitForEvent('download'), page.click('#complete-download')]);
   const files = unzipSync(new Uint8Array(await readFile(await download.path())));
   expect(Object.keys(files)).toEqual(expect.arrayContaining(['obj_1_Customized Plate.stl', 'obj_2_Customized Map.stl', 'obj_8_Frame Upper.stl', 'source-credits/CREDITS.txt', 'source-credits/MAP-SETTINGS.json']));
   expect(Object.keys(files).some((name) => name.includes('EXAMPLE'))).toBe(false);
   expect(strFromU8(files['source-credits/CREDITS.txt'])).toContain('OpenStreetMap');
+
+  await page.getByRole('tab', { name: /The plate/ }).click();
+  await expect(page.locator('#preview-type')).toHaveText('MEDAL PLATE');
+  await expect(page.locator('#assembled-view')).toHaveAttribute('aria-pressed', 'false');
 
   // The design survives a reload, and the share link round-trips it.
   await page.waitForTimeout(600);
