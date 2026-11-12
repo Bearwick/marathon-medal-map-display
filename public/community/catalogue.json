@@ -62,19 +62,19 @@
 		}
 	},
 	{
-		"id": "helsinki-2027-half",
-		"raceId": "helsinki",
+		"id": "oslo-2026-10k",
+		"raceId": "oslo",
 		"curation": "community",
-		"year": 2027,
-		"distanceKm": 21.0975,
-		"title": "Helsinki City Marathon 2027 course",
-		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicityhalf-halfmarathon/",
-		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/9",
+		"year": 2026,
+		"distanceKm": 10,
+		"title": "Oslo Maraton 2026 course",
+		"sourceUrl": "https://oslomaraton.no/loypa-2/",
+		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/12",
 		"license": "MIT",
 		"attribution": "No",
 		"notes": "",
 		"files": {
-			"gpx": "helsinki/helsinki-2027-half/route.gpx"
+			"gpx": "oslo/oslo-2026-10k/route.gpx"
 		}
 	}
 ]
