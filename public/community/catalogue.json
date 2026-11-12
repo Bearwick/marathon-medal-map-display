@@ -44,5 +44,21 @@
 		"files": {
 			"gpx": "oslo/oslo-2026-marathon/route.gpx"
 		}
+	},
+	{
+		"id": "helsinki-2027-marathon",
+		"raceId": "helsinki",
+		"curation": "community",
+		"year": 2027,
+		"distanceKm": 42.195,
+		"title": "Helsinki City Marathon 2027 course",
+		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicitymarathon/",
+		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/5",
+		"license": "A",
+		"attribution": "No",
+		"notes": "",
+		"files": {
+			"gpx": "helsinki/helsinki-2027-marathon/route.gpx"
+		}
 	}
 ]
