@@ -1,0 +1,137 @@
+name: Suggested course intake
+# 1. When a "[Community course]" issue is opened or edited, check its proposal ZIP and post a review report.
+# 2. When a maintainer adds the "approve-course" label, add the course and open a pull request.
+# Requires: Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests",
+# and an "approve-course" label. Issue text is untrusted: it is only ever passed through environment variables.
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+concurrency:
+  group: course-intake-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.event.action != 'labeled' && startsWith(github.event.issue.title, '[Community course]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Find the proposal ZIP
+        id: zip
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          url=$(printf '%s' "$BODY" | grep -oE 'https://github\.com/(user-attachments/files/[0-9]+|[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/files/[0-9]+)/[^ )>"]+\.zip' | head -n 1 || true)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Check the proposal (dry run)
+        if: steps.zip.outputs.url != ''
+        env:
+          URL: ${{ steps.zip.outputs.url }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: node scripts/add-course.mjs "$URL" --issue "$ISSUE" --dry-run --report report.md || true
+      - name: Post or update the review comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          FOUND: ${{ steps.zip.outputs.url != '' }}
+        run: |
+          {
+            echo '<!-- course-intake-report -->'
+            if [ "$FOUND" = "true" ]; then
+              cat report.md
+              echo
+              echo '---'
+              echo '_Maintainers: when the checklist is done, add the `approve-course` label to open a pull request automatically._'
+            else
+              echo '## Course intake report'
+              echo
+              echo '- ❌ No proposal ZIP found. Attach the ZIP from the app (Suggest this course → Prepare ZIP) to the issue description, then save the edit.'
+            fi
+          } > comment.md
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" --paginate --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("<!-- course-intake-report -->"))) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@comment.md > /dev/null
+          else
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file comment.md
+          fi
+
+  approve:
+    if: github.event.action == 'labeled' && github.event.label.name == 'approve-course'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Find the proposal ZIP
+        id: zip
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          url=$(printf '%s' "$BODY" | grep -oE 'https://github\.com/(user-attachments/files/[0-9]+|[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/files/[0-9]+)/[^ )>"]+\.zip' | head -n 1 || true)
+          if [ -z "$url" ]; then echo "No proposal ZIP attachment found in the issue description." > error.txt; exit 1; fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Add the course
+        env:
+          URL: ${{ steps.zip.outputs.url }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: node scripts/add-course.mjs "$URL" --issue "$ISSUE" --report report.md --json result.json
+      - name: Run tests
+        run: npm test
+      - name: Open the pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          id=$(node -p "require('./result.json').id")
+          folder=$(node -p "require('./result.json').folder")
+          branch="course/${id}-issue-${ISSUE}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add "public/community/${folder}" public/community/catalogue.json
+          git commit -m "feat(courses): add ${id} (#${ISSUE})"
+          git push --force origin "$branch"
+          { cat report.md; echo; echo "Closes #${ISSUE}"; } > pr.md
+          url=$(gh pr create --repo "$GITHUB_REPOSITORY" --head "$branch" --title "Add course ${id} (#${ISSUE})" --body-file pr.md 2>/dev/null \
+            || (gh pr edit "$branch" --repo "$GITHUB_REPOSITORY" --body-file pr.md > /dev/null && gh pr view "$branch" --repo "$GITHUB_REPOSITORY" --json url --jq .url))
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Report the pull request on the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          PR: ${{ steps.pr.outputs.url }}
+        run: |
+          gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "Pull request ready for review and merge: $PR — the course goes live after it is merged and the site redeploys."
+      - name: Report the failure on the issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "The course could not be added automatically ([workflow run]($RUN))."
+            echo
+            if [ -s report.md ]; then cat report.md; elif [ -s error.txt ]; then echo "- ❌ $(cat error.txt)"; else echo "- ❌ The tests or the pull request step failed; see the workflow run."; fi
+            echo
+            echo '_Fix the problem (or ask the submitter to attach a corrected ZIP), then add the `approve-course` label again._'
+          } > comment.md
+          gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file comment.md
+          gh issue edit "$ISSUE" --repo "$GITHUB_REPOSITORY" --remove-label approve-course || true

@@ -58,7 +58,7 @@ Catalogue research: [World Marathon Majors](https://www.worldmarathonmajors.com/
 Many races are mapped in OpenStreetMap as route relations (`type=route`, `route=running`). To add one:
 
 ```sh
-npm run course:osm -- <relationId> public/community/<course-id>/route.gpx
+npm run course:osm -- <relationId> public/community/<race-id>/<course-id>/route.gpx
 ```
 
 The script fetches the relation from Overpass and stitches its ways in order, joining pieces whose ends are within 50 m. It then simplifies the track to 5 m and writes a timestamp-free GPX carrying ODbL attribution. **It warns when gaps remain.** Do not publish a course with gaps: the generated map would draw straight lines across them. For example, the London Marathon relation was left out because it still had gaps of up to 1.7 km. Then add a catalogue entry with `"curation": "maintainer"`, the relation URL as `sourceUrl`, `"license": "Open Database License (ODbL) 1.0"`, `"attribution": "© OpenStreetMap contributors"` and notes on what was and wasn't verified. `npm test` checks that every bundled GPX parses, contains no timestamps and is within 3% of the official distance.
@@ -72,20 +72,40 @@ The app remains static on GitHub Pages. **Recommendations are curated repository
 1. In step 02, upload a GPX track, a printable 3MF/STL (under **Advanced**), or both.
 2. Expand **Propose this track or map to the community**. Supply race name, edition year, official distance, HTTPS source, redistribution licence/permission, attribution and known limitations.
 3. Inspect and clean the files first: remove home/start/end locations where private, activity timestamps, names and personal metadata. Check embedded original-source files in 3MF as well. **The app does not anonymize the files.** If cleaning requires changing a file, upload the cleaned version before preparing the proposal.
-4. Confirm sharing permission, privacy review and public visibility. Choose **Prepare proposal ZIP**. This only downloads the original uploaded files plus metadata locally; the GitHub link carries textual proposal details, not file contents.
+4. Confirm sharing permission, privacy review and public visibility. Choose **Prepare ZIP**. This only downloads a ZIP locally: a `<race-id>/<course-id>/` folder with the uploaded files, `catalogue-entry.json` (a ready-to-paste entry in exactly the catalogue schema below), and maintainer instructions. The GitHub link carries the text of the proposal, not file contents.
 5. Choose **Open GitHub proposal**, sign into GitHub, attach the ZIP and submit the issue. If it exceeds GitHub's attachment limit, provide a public download link whose files may be redistributed. Preparing a ZIP or opening the issue page is **not** a completed submission.
-6. Wait for maintainer review. An issue being closed or labelled does not publish it. Approval for inclusion does **not** certify organizer accuracy.
+6. An automatic review comment appears on the issue within a minute or two, listing any problems (for example a distance mismatch). Fix them by attaching a corrected ZIP and editing the issue; the comment updates. Then wait for maintainer review. Only a merged pull request publishes a course. Approval for inclusion does **not** certify organizer accuracy.
 
 Editing/printing needs no account; proposing through GitHub requires an account. Uploads stay in memory unless you explicitly share them in a public GitHub issue or external download. The [issue template](.github/ISSUE_TEMPLATE/community-map.md) also supports submissions made directly on GitHub.
 
-### Review and manually publish a map
+### Review and publish a suggested course
 
-Use the same process for maps you add yourself:
+Courses are stored in one folder per race and one subfolder per course: `public/community/<race-id>/<course-id>/route.gpx` (and/or `map.3mf` / `map.stl`), e.g. `oslo/oslo-2026-half/` and `oslo/oslo-2026-marathon/`. The catalogue check enforces this layout.
+
+**One-label flow (recommended).** The [intake workflow](.github/workflows/add-course.yml) runs [`scripts/add-course.mjs`](scripts/add-course.mjs) on every `[Community course]` issue that is opened or edited, and posts a **course intake report** comment. The report shows the race/edition/distance, the GPX distance against the official one, private data it will strip (timestamps, waypoints, device extensions, author/email), start and finish on OpenStreetMap, large gaps, map dimensions and depth, and whether the catalogue entry is valid. As the reviewer:
+
+1. Read the report and complete its checklist: the licence or permission is real, the route matches the organizer's course for that edition, start and finish are not private places, and the credits read well.
+2. Add the **`approve-course`** label. The workflow adds the course folder and catalogue entry (with `reviewUrl` pointing at the issue), runs `npm test`, opens a pull request with the report and `Closes #<issue>`, and links it on the issue. If anything fails it comments the reason and removes the label so you can re-apply it after a fix.
+3. Merge the pull request. The Pages deployment publishes the course.
+
+One-time setup: create the `approve-course` label, and enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**. The workflow only downloads `https://github.com/user-attachments/…` ZIPs and passes issue text through environment variables only.
+
+**Locally**, the same script does everything except the pull request:
+
+```sh
+npm run course:add -- ~/Downloads/finishline-community-proposal.zip --issue 123 --dry-run   # report only
+npm run course:add -- ~/Downloads/finishline-community-proposal.zip --issue 123             # add it
+npm run course:add -- proposal.zip --maintainer   # a course you add yourself (no review issue)
+```
+
+It also accepts the attachment URL instead of a file, `--replace` to update an existing course and `--report <file>` to save the report. It writes only `public/community/<race-id>/<course-id>/` and the new catalogue entry, and only when every check passes; then run `npm test`, commit and open a pull request.
+
+**Manually** (fallback, or for maps you add yourself without a proposal ZIP):
 
 1. Check source ownership and redistribution permission for **both** GPX and geographic/model data. Retain all credits. Inspect for private locations and embedded personal data.
 2. Compare the course against the organizer's correct **edition and distance**, noting deviations. Test GPX parsing and map import in the app, named route parts, XY size, vertical clearance and sliced printability. Do not mark an unverified community track official.
-3. Copy approved files into `public/community/<course-id>/`, with simple filenames such as `route.gpx` and `map.3mf`. Include source licence/credits in the original 3MF where applicable. These files will be public.
-4. Add an entry to `public/community/catalogue.json`, using this shape (illustrative only; do not publish without real reviewed files):
+3. Copy approved files into `public/community/<race-id>/<course-id>/`, with simple filenames such as `route.gpx` and `map.3mf`. Include source licence/credits in the original 3MF where applicable. These files will be public.
+4. Add an entry to `public/community/catalogue.json`. For a proposal, paste its `catalogue-entry.json` and replace `ISSUE_NUMBER` in `reviewUrl`; for a course you add yourself, set `"curation": "maintainer"` and remove `reviewUrl`. The shape (illustrative only; do not publish without real reviewed files):
 
 ```json
 {
@@ -102,15 +122,15 @@ Use the same process for maps you add yourself:
   "attribution": "Creator and all required geographic-data credits",
   "notes": "Known deviations and print limitations",
   "files": {
-    "gpx": "oslo-2026-marathon/route.gpx",
-    "map": "oslo-2026-marathon/map.3mf"
+    "gpx": "oslo/oslo-2026-marathon/route.gpx",
+    "map": "oslo/oslo-2026-marathon/map.3mf"
   }
 }
 ```
 
-Either file may be omitted, but at least one is required. `raceId` must exist in `src/data.ts`; add a custom race there before publishing its course. For `"curation": "community"` (the default), `reviewUrl` must link to this repository's actual review issue or pull request; maintainer-added entries may omit it. `date` is optional, must fall in `year`, and fills the plate date when the course is chosen. File paths are relative to `public/community/`, never external URLs or traversal paths. Source links must use HTTPS. Multiple reviewed alternatives for an edition are supported; there is no popularity ranking or automatic selection.
+Either file may be omitted, but at least one is required. `raceId` must exist in `src/data.ts`; add a custom race there before publishing its course. For `"curation": "community"` (the default), `reviewUrl` must link to this repository's actual review issue or pull request; maintainer-added entries may omit it. `date` is optional, must fall in `year`, and fills the plate date when the course is chosen. File paths are relative to `public/community/` and must be inside `<raceId>/<id>/`; never external URLs or traversal paths. Source links must use HTTPS. Multiple reviewed alternatives for an edition are supported; there is no popularity ranking or automatic selection.
 
-5. Run `npm test` and `npm run build`, then review and merge the catalogue/files. Tests validate metadata, local file existence and file sizes; the human review must establish course accuracy, licensing and geometry quality. A Pages deployment makes the merged entry available.
+5. Run `npm test` and `npm run build`, then commit and open a pull request. `npm test` fails on any invalid entry; the app itself skips invalid entries, lists them under the known courses, and still shows the valid ones. Tests validate metadata, local file existence and file sizes; the human review must establish course accuracy, licensing and geometry quality. A Pages deployment makes the merged entry available.
 
 Courses are matched to the selected race ID and official distance (not GPX-measured distance), ranked by edition year as described above. Users explicitly choose one. GPX entries load the route, ready for map generation; map entries load printable geometry. They stay labelled **Known course — unofficial** or **Community map — unofficial**. Downloads keep the credits: in a ZIP next to the GPX, as `Metadata/CREDITS.txt` inside 3MF files, as `CREDITS.txt` in STL ZIPs, and as `source-credits/CREDITS.txt` in the complete ZIP.
 

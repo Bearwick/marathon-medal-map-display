@@ -26,8 +26,11 @@ export function coursesPanel(state: StudioState): string {
           ${selected ? '<p class="selected-label"><span class="status-dot"></span> Selected</p>' : `<button class="secondary" data-community="${course.id}">Use this course <span>→</span></button>`}
         </article>`;
       }).join('') : `<p class="help">No known course for this race and distance yet. Upload a GPX below${state.design.raceId === 'custom' ? '' : ', and suggest it to the community'}.</p>`;
+  const skipped = state.catalogueWarnings.length
+    ? `<details class="catalogue-warnings"><summary>${state.catalogueWarnings.length} catalogue entr${state.catalogueWarnings.length === 1 ? 'y was' : 'ies were'} skipped</summary><ul>${state.catalogueWarnings.map((warning) => `<li>${xmlEscape(warning)}</li>`).join('')}</ul></details>`
+    : '';
   return `<section class="community-section" aria-label="Known courses"><h3>Known courses</h3>
-    <p class="help">Unofficial routes. Courses change between editions — compare with the organizer before printing.</p>${body}</section>`;
+    <p class="help">Unofficial routes. Courses change between editions — compare with the organizer before printing.</p>${body}${skipped}</section>`;
 }
 
 export function proposalPanel(state: StudioState): string {

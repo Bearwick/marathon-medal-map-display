@@ -34,3 +34,4 @@ input[type=range]{width:100%}
 .view-actions button[aria-pressed=true]{background:var(--ink);color:#faf9f5;border-color:var(--ink)}
 #generate-map{margin-top:6px}
 @media(max-width:780px){.picker-slot{height:260px}.editor-tools{padding:0 22px 20px}.layer-grid{grid-template-columns:1fr}}
+.catalogue-warnings{font-size:10px;color:#8a4f1d;margin:-4px 0 12px}.catalogue-warnings ul{padding-left:16px;margin:6px 0 0}

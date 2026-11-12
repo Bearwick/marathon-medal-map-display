@@ -74,3 +74,16 @@ test('offers the bundled Boston course for the Boston Marathon', async ({ page }
   await page.getByRole('tab', { name: /The plate/ }).click();
   await expect(page.locator('[data-field="date"]')).toHaveValue('2026-04-20');
 });
+
+test('offers the bundled Oslo half marathon course', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.selectOption('[data-field="raceId"]', 'oslo');
+  await page.selectOption('[data-field="distanceId"]', 'half');
+  await expect(page.locator('#course-hint')).toContainText('course map');
+  await page.getByRole('tab', { name: /The map/ }).click();
+  await expect(page.locator('.catalogue-warnings')).toHaveCount(0);
+  await page.click('[data-community="oslo-2026-half"]');
+  await expect(page.locator('.track-card')).toContainText('21.37 km');
+});
