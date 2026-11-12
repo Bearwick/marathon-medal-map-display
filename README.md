@@ -101,7 +101,7 @@ Recommendations are matched to the selected race ID, **exact edition year from t
 1. Export your own GPS activity as GPX from the **Strava website**, or draw a route in **On The Go Map** and use its menu's GPX export.
 2. Upload that GPX in step 02. The app shows a **flat route schematic**, distance and point count. This is not a terrain/building model. GPX distance does not overwrite your official plate distance.
 3. Open **Mini Skyline** manually, locate the course and import the GPX in its route tools. Select city detail or terrain as appropriate for the covered area; larger courses may require terrain or project mode.
-4. Choose a rectangular footprint targeting **141 × 120.914 mm**, without an additional decorative frame. Keep the route as a distinct, named, solid-colour part. Check base thickness, relief and route width for printability.
+4. Choose a rectangular footprint targeting **133 × 117 mm**, without an additional decorative frame. Keep the route as a distinct, named, solid-colour part. Check base thickness, relief and route width for printability. To reduce file size, turn off landmark models, detailed stadiums, dormers and chimneys, stepped towers, church towers, minarets and domes, window detail, and bay windows; choose thicker detail.
 5. Export a multipart 3MF and import it back into this app. The map is **uniformly scaled** to fit within the original map footprint; it is not distorted or cropped, so a different aspect ratio leaves a margin. Scaling also changes height: verify the displayed final thickness and frame clearance.
 6. Select the named route part to apply the highlight colour, then export. A single-body STL cannot distinguish a route from surrounding geography; use multipart 3MF for route-only recolouring.
 

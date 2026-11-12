@@ -61,7 +61,7 @@ export async function exportCompleteDisplay(input: CompleteDisplay): Promise<Uin
     'FINISHLINE / COMPLETE DISPLAY',
     '',
     'One STL per complete printable display part. The customized plate includes its base, attached text, fixed labels and BIB prefix in one file. The customized map includes all its bodies in one file. No separate text/base/map-layer STL imports are needed.',
-    'STL contains triangle surfaces, not filament colours. Keep connected/touching shells together and slice as a union; do not split the complete plate or map into independently placed bodies. For named colour-separated materials, use the individual multipart 3MF downloads in the app.',
+    'STL contains triangle surfaces, not filament colours. Keep connected/touching shells together and slice as a union; do not split the complete plate or map into independently placed bodies.',
     '',
     input.usesExample ? 'WARNING: The map is the supplied EXAMPLE. It is NOT a course for the selected race or an organizer-verified map. Any GPX preview is not a detailed printable map.' : 'Map: customized imported geometry. Confirm the route, edition and distance. Community maps remain unofficial.',
     '',

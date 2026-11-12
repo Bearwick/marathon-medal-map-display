@@ -56,10 +56,7 @@ app.innerHTML = `
     <a class="header-link" href="https://github.com/Bearwick/marathon-medal-map-display" target="_blank" rel="noopener noreferrer">Open source <span aria-hidden="true">↗</span></a>
   </header>
   <main>
-    <section class="intro">
-      <div><p class="eyebrow"><span class="status-dot"></span> MADE OF MILES. MADE BY YOU.</p><h1>A finish worth<br><em>holding on to.</em></h1></div>
-      <p class="intro-copy">Your race. Your route. Your story.<br>Make a one-of-a-kind, 3D-printable<br class="desktop-break"> home for your hard-earned medal.</p>
-    </section>
+    <section class="intro"><h1>Make your<br><em>race tangible.</em></h1></section>
     <div class="workspace">
       <section class="editor" aria-label="Design controls">
         <nav class="steps" aria-label="Design steps">
@@ -74,12 +71,11 @@ app.innerHTML = `
         <div class="preview-top"><span><span class="status-dot"></span> LIVE PREVIEW</span><span id="preview-type">MEDAL PLATE</span></div>
         <div id="viewer"><p class="loading">Preparing your studio…</p></div>
         <div class="preview-overlay"><span id="preview-badge">143 × 222 MM · ORIGINAL FIT</span><div class="view-actions"><button id="top-view" title="View model from above">Top view</button><button id="reset-view" title="Reset model view">Reset view ↗</button></div></div>
-        <div class="preview-bottom"><span>↔ Drag to rotate <span class="hint-divider">/</span> Scroll to zoom</span><span>REAL GEOMETRY. NOT A MOCKUP.</span></div>
+        <div class="preview-bottom"><span>↔ Drag to rotate <span class="hint-divider">/</span> Scroll to zoom</span></div>
       </section>
     </div>
-    <section class="bottom-notes"><div><span class="note-number">01 /</span><strong>Keep the original fit.</strong><p>Designed for your existing frame and ribbon holder.</p></div><div><span class="note-number">02 /</span><strong>A little colour. A lot of character.</strong><p>Named parts, ready for filament choices in your slicer.</p></div><div><span class="note-number">03 /</span><strong>Your route stays yours.</strong><p>Uploads are processed on your device. No account needed.</p></div></section>
   </main>
-  <footer><span class="footer-brand">finishline.</span><span>Every finish line has a story. Make yours tangible.</span><a href="${import.meta.env.BASE_URL}generated/THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener noreferrer">Third-party notices</a><a href="https://github.com/Bearwick/marathon-medal-map-display#readme" target="_blank" rel="noopener noreferrer">Print & assembly guide ↗</a></footer>
+  <footer><span class="footer-brand">finishline.</span><a href="${import.meta.env.BASE_URL}generated/THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener noreferrer">Third-party notices</a><a href="https://github.com/Bearwick/marathon-medal-map-display#readme" target="_blank" rel="noopener noreferrer">Print guide ↗</a></footer>
 `;
 
 const colourLabels: Record<ColourKey, string> = { base: 'Plate base', title: 'Title', location: 'Location', date: 'Date', distance: 'Distance', time: 'Time', pace: 'Pace', bib: 'BIB', route: 'Route highlight' };
@@ -95,27 +91,27 @@ function resultField(key: 'time' | 'pace' | 'bib', label: string, value: string,
 function communityPanel(): string {
   const matches = matchingCourses(communityCourses, design);
   return `<section class="community-section" aria-label="Community courses">
-    <h3>Run it. Share it. Print it.</h3>
-    <p class="help">Community maps are unofficial, reviewed for inclusion—not organizer-verified. Matching your selected race, ${xmlEscape(design.date.slice(0, 4))} edition and distance only. Check the course before printing.</p>
+    <h3>Community courses</h3>
+    <p class="help">Unofficial maps match race, year and distance. Verify the course before printing.</p>
     ${catalogueState === 'loading' ? '<p role="status">Loading community recommendations…</p>' : catalogueState === 'error'
       ? `<div class="notice"><strong>Recommendations unavailable</strong><p>${xmlEscape(catalogueError)}</p><button class="text-button" id="retry-catalogue">Retry catalogue</button></div>`
       : matches.length ? matches.map((course) => `<article class="notice community-course">
         <strong>${xmlEscape(course.title)}</strong><p class="community-tag">COMMUNITY MAP — UNOFFICIAL</p>
         <p>${course.year} · ${course.distanceKm} km · ${course.files.gpx ? 'GPX track' : ''}${course.files.gpx && course.files.map ? ' + ' : ''}${course.files.map ? 'Printable map' : ''}</p>
-        <p>${xmlEscape(course.notes || 'No limitations supplied. Inspect the course and geometry yourself.')}</p>
+        ${course.notes ? `<p>${xmlEscape(course.notes)}</p>` : ''}
         <p>Licence: ${xmlEscape(course.license)}<br>Credits: ${xmlEscape(course.attribution)}</p>
         <a href="${xmlEscape(course.sourceUrl)}" target="_blank" rel="noopener noreferrer">Source ↗</a> · <a href="${xmlEscape(course.reviewUrl)}" target="_blank" rel="noopener noreferrer">Maintainer review ↗</a>
-        <button class="secondary" data-community="${course.id}">Use this unofficial ${course.files.map ? 'map' : 'track'} <span>→</span></button>
-      </article>`).join('') : '<p class="help">No approved community map matches this race, edition and distance yet. Upload yours below and propose it for review.</p>'}
-    ${activeCourse ? `<div class="notice"><strong>Using community course — unofficial</strong><p>${xmlEscape(activeCourse.title)} · ${activeCourse.year} · ${activeCourse.distanceKm} km. Replacing the GPX or map removes this recommendation association.</p></div>` : ''}
+        <button class="secondary" data-community="${course.id}">Use this ${course.files.map ? 'map' : 'track'} <span>→</span></button>
+      </article>`).join('') : '<p class="help">No matching community course yet. Upload yours to suggest one.</p>'}
+    ${activeCourse ? `<div class="notice"><strong>Community course selected · unofficial</strong><p>Replacing its GPX or map removes this association.</p></div>` : ''}
   </section>`;
 }
 
 function proposalPanel(): string {
   if (!track && !mapFile) return '';
   const race = races.find((item) => item.id === design.raceId);
-  return `<details class="guide" id="proposal-details"><summary>Propose this track or map to the community</summary>
-    <p class="help">A GitHub account is required. Prepare a ZIP, open a GitHub issue, then attach the ZIP and submit it yourself. Nothing is uploaded or published automatically. A maintainer must approve and merge it before other users see it.</p>
+  return `<details class="guide" id="proposal-details"><summary>Suggest this course</summary>
+    <p class="help">Prepare a ZIP and submit it with a public GitHub issue. Nothing is uploaded automatically; a maintainer must approve it.</p>
     <form id="proposal-form">
       <label>Race name<input name="raceName" required maxlength="100" value="${xmlEscape(race?.name || design.location)}"></label>
       <div class="field-grid"><label>Edition year<input name="year" type="number" required min="1900" max="2100" step="1" value="${xmlEscape(design.date.slice(0, 4))}"></label>
@@ -124,16 +120,16 @@ function proposalPanel(): string {
       <label>Redistribution licence or permission<input name="license" required maxlength="500" placeholder="For example CC BY 4.0, with source evidence"></label>
       <label>Required credits / attribution<input name="attribution" required maxlength="500" placeholder="Creator and all map-data sources"></label>
       <label>Course differences and print limitations<textarea name="notes" maxlength="1500" rows="3"></textarea></label>
-      <p class="help">Files shared: ${track ? 'route.gpx' : ''}${track && mapFile ? ', ' : ''}${mapFile ? xmlEscape(mapFile.name) : ''}. The ZIP keeps the original files, including embedded metadata. It does not anonymize them.</p>
-      <label class="checkbox"><input type="checkbox" name="rights" required> I have permission to publish and redistribute these files with the stated credits.</label>
-      <label class="checkbox"><input type="checkbox" name="privacy" required> I inspected and removed private locations, timestamps and personal data, including embedded 3MF source metadata.</label>
-      <label class="checkbox"><input type="checkbox" name="public" required> I understand this issue and its attachments will be public and unofficial.</label>
-      <button class="secondary" type="submit" id="prepare-proposal">1. Prepare proposal ZIP <span>↧</span></button>
+      <p class="help">Included: ${track ? 'route.gpx' : ''}${track && mapFile ? ', ' : ''}${mapFile ? xmlEscape(mapFile.name) : ''}. Original files and metadata are not anonymized.</p>
+      <label class="checkbox"><input type="checkbox" name="rights" required> I have permission to share these files with the stated credits.</label>
+      <label class="checkbox"><input type="checkbox" name="privacy" required> I removed private locations, timestamps and personal data, including embedded 3MF metadata.</label>
+      <label class="checkbox"><input type="checkbox" name="public" required> I understand this submission and attachments will be public and unofficial.</label>
+      <button class="secondary" type="submit" id="prepare-proposal">Prepare ZIP <span>↧</span></button>
     </form>
     <p class="error" id="proposal-error" role="alert" hidden></p>
     <p class="help" id="proposal-status" role="status"></p>
-    <a class="secondary" id="proposal-issue" target="_blank" rel="noopener noreferrer" hidden>2. Open GitHub proposal <span>↗</span></a>
-    <p class="help">Attach the downloaded ZIP to the issue before submitting. If too large for GitHub attachments, provide a public download link with redistribution permission. No token is stored in this app.</p>
+    <a class="secondary" id="proposal-issue" target="_blank" rel="noopener noreferrer" hidden>Open GitHub issue <span>↗</span></a>
+    <p class="help">Attach the ZIP. If it is too large, link to a public download you may redistribute.</p>
   </details>`;
 }
 
@@ -142,70 +138,63 @@ function renderPanel(): void {
     let pace = design.pace;
     try { if (design.autoPace) pace = paceText(design); } catch { pace = ''; /* Validation is surfaced by rebuildPlate. */ }
     $('#panel').innerHTML = `
-      <div class="section-heading"><div><p class="eyebrow">THE DETAILS THAT MATTER</p><h2>Make it your race.</h2></div><span class="small-tag">01 / 03</span></div>
+      <div class="section-heading"><h2>Medal plate</h2><span class="small-tag">01 / 03</span></div>
       <div class="field-grid"><label>Race distance<select data-field="distanceId">${distances.map((d) => `<option value="${d.id}" ${d.id === design.distanceId ? 'selected' : ''}>${d.title.replace(' · ', ' / ')}${d.id === 'custom' ? '' : ` · ${d.km} km`}</option>`).join('')}</select></label><label id="custom-distance" ${design.distanceId !== 'custom' ? 'hidden' : ''}>Distance / km<input data-field="customKm" type="number" min="0.1" max="1000" step="0.001" value="${xmlEscape(design.customKm)}"></label></div>
       <label>Plate title<input data-field="title" value="${xmlEscape(design.title)}" maxlength="40"></label>
       <label>Find your race<select data-field="raceId"><option value="custom" ${design.raceId === 'custom' ? 'selected' : ''}>My own adventure / enter manually</option>${races.map((r) => `<option value="${r.id}" ${r.id === design.raceId ? 'selected' : ''}>${r.name} · ${r.country}</option>`).join('')}</select></label>
       <div class="field-grid location-date"><label>Location / custom race name<input data-field="location" value="${xmlEscape(design.location)}" maxlength="48"></label><label>Race date<input data-field="date" type="date" value="${design.date}"></label></div>
-      <p class="help">Choose your actual race date. Catalogue selections fill the location, not an edition or course.</p>
       <div class="divider"></div>
-      <div class="subheading"><h3>Your finish, in numbers.</h3><span>ALL OPTIONAL</span></div>
+      <div class="subheading"><h3>Race results</h3><span>OPTIONAL</span></div>
       ${resultField('time', 'Finish time', design.time, '03:42:18')}
       ${resultField('pace', 'Pace / km', pace, '5:16')}
       <label class="checkbox"><input type="checkbox" id="auto-pace" ${design.autoPace ? 'checked' : ''}> Calculate pace from time and distance</label>
-      <p id="pace-help" class="help">Time: H:MM:SS. Pace: M:SS per kilometre. Glue-on mode keeps labels (and BIB #) on the display, with blank space for loose digits. Leave results blank before the race; download exact digits or a reusable number kit in step 03.</p>
+      <p id="pace-help" class="help">Time: H:MM:SS · Pace: M:SS/km. Glue-on fields keep their labels on the plate.</p>
       ${resultField('bib', 'BIB number', design.bib, '2048')}
-      <details class="colour-details"><summary><span class="colour-dots"><i></i><i></i><i></i></span> Your print palette <span>Customize ↗</span></summary>${colours(['base', 'title', 'location', 'date', 'distance', 'time', 'pace', 'bib'])}<p class="help">Independent colours at the same height need multi-material printing. A manual filament swap changes the entire layer.</p></details>
+      <details class="colour-details"><summary><span class="colour-dots"><i></i><i></i><i></i></span> Colours <span>Customize ↗</span></summary>${colours(['base', 'title', 'location', 'date', 'distance', 'time', 'pace', 'bib'])}<p class="help">Different colours at the same height need a multi-material printer.</p></details>
       <button class="primary next-step" data-go="map">Next: make your map <span>→</span></button>
-      <p class="privacy-note">No sign-up. No uploads to a server. Just your next keepsake.</p>`;
+      `;
   } else if (active === 'map') {
     const race = races.find((r) => r.id === design.raceId);
     $('#panel').innerHTML = `
-      <div class="section-heading"><div><p class="eyebrow">EVERY TURN TELLS A STORY</p><h2>Put your miles on the map.</h2></div><span class="small-tag">02 / 03</span></div>
-      <div class="notice"><strong>${race ? xmlEscape(race.name) : 'Your own adventure'}</strong><p>No verified edition-specific course is bundled${race ? ' for this race' : ''}. Upload your actual GPX, or obtain the correct course from the organizer. We never substitute an invented route.</p>${race ? `<a href="${race.url}" target="_blank" rel="noopener noreferrer">Visit race organizer ↗</a>` : ''}</div>
+      <div class="section-heading"><h2>Route map</h2><span class="small-tag">02 / 03</span></div>
+      <div class="notice"><strong>${race ? xmlEscape(race.name) : 'Your own race'}</strong><p>No verified course is included. Upload a GPX or get the course from the organizer.</p>${race ? `<a href="${race.url}" target="_blank" rel="noopener noreferrer">Race organizer ↗</a>` : ''}</div>
       ${communityPanel()}
-      <label class="upload-zone"><span class="upload-icon">↥</span><strong>${track ? 'Replace your GPX route' : 'Bring your route along'}</strong><span>Choose a .gpx file · up to 12 MB</span><input id="gpx-upload" type="file" accept=".gpx,application/gpx+xml"><span class="upload-button">Choose GPX</span></label>
-      ${track ? `<div class="track-card"><span class="status-dot"></span><strong>${xmlEscape(track.name)}</strong><span>${track.km.toFixed(2)} km · ${track.points.toLocaleString()} points</span><button class="text-button" id="download-gpx">${activeCourse ? 'Download GPX + credits ZIP' : 'Download GPX ↗'}</button></div><p class="help">Without a detailed map, the preview is a flat route schematic, not generated terrain. GPX distance is informational; your official plate distance stays unchanged.</p>` : imported ? '' : '<p class="help">The supplied example map is shown for reference only. It is not the selected race course.</p>'}
+      <label class="upload-zone"><span class="upload-icon">↥</span><strong>${track ? 'Replace GPX route' : 'Upload GPX route'}</strong><span>.gpx · max 12 MB</span><input id="gpx-upload" type="file" accept=".gpx,application/gpx+xml"><span class="upload-button">Choose GPX</span></label>
+      ${track ? `<div class="track-card"><span class="status-dot"></span><strong>${xmlEscape(track.name)}</strong><span>${track.km.toFixed(2)} km · ${track.points.toLocaleString()} points</span><button class="text-button" id="download-gpx">${activeCourse ? 'Download GPX + credits' : 'Download GPX ↗'}</button></div><p class="help">GPX preview shows the route only, not terrain.</p>` : imported ? '' : '<p class="help">The example map is for reference only, not your race course.</p>'}
       ${colours(['route'])}
-      <details class="guide"><summary>Where do I get my GPX?</summary><p><strong>Strava:</strong> open your own GPS activity on the Strava website. Use the activity menu → Export GPX. Export is available on the website, not in the mobile app.</p><a href="https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export" target="_blank" rel="noopener noreferrer">Strava export instructions ↗</a><p><strong>No recorded activity?</strong> Draw your route in On The Go Map, then choose Export GPX from its menu. Check the course against your race edition before printing.</p><a href="https://onthegomap.com/" target="_blank" rel="noopener noreferrer">Plan with On The Go Map ↗</a></details>
-      <div class="divider"></div><h3>From route to real geography.</h3><p class="body-copy">Map2Model has shut down. Use Mini Skyline to create a detailed map with streets, buildings or terrain.</p>
-      <ol class="map-instructions"><li>Open Mini Skyline, find the race location, and import your GPX in its route controls.</li><li>Select a rectangle around the course. Use <strong>141 × 120.914 mm</strong> as the target footprint, Z up. Disable its decorative frame.</li><li>Keep the route as a <strong>separate named part</strong>. Set its width, raised height and colour. Check base thickness against your frame.</li><li>Export a <strong>solid-colour multipart 3MF</strong>, then import it below. Keep its attribution and licence files.</li></ol>
-      <a class="secondary external-button" href="https://miniskyline.com/map" target="_blank" rel="noopener noreferrer">Open Mini Skyline <span>↗</span></a><p class="help">This opens an independent website. Your GPX is not sent automatically; choose whether to upload it there.</p>
-      <label class="file-label">Import the detailed map<input id="map-upload" type="file" accept=".3mf,.stl"><span class="help">3MF recommended · up to ${MAX_MAP_FILE_MB} MB compressed / ${MAX_EXPANDED_MAP_MB} MB expanded / 5 million triangles · uniform scaling to fit the original map footprint. Large maps may exhaust browser memory, especially on phones.</span></label>
-      ${imported ? `<div class="notice success"><strong>Detailed map ready</strong><p>${imported.dimensions.width.toFixed(2)} × ${imported.dimensions.height.toFixed(2)} × ${imported.dimensions.depth.toFixed(2)} mm. Scaled uniformly, not stretched. Check vertical clearance and dry-fit before printing.</p></div><label>Which part is the route?<select id="route-part"><option value="">Choose a named route part</option>${imported.parts.map((mesh, i) => `<option value="${i}" ${mesh.userData.route ? 'selected' : ''}>${xmlEscape(mesh.name)} (${i + 1})</option>`).join('')}</select></label><p class="help">Apply the route highlight to this part only. A single-body STL cannot isolate its route; export separate named parts from the generator instead.</p><button id="clear-map" class="text-button">Remove imported map</button>` : ''}
+      <details class="guide"><summary>Get a GPX route</summary><p>Export your activity as GPX from Strava or draw one with <a href="https://onthegomap.com/" target="_blank" rel="noopener noreferrer">On The Go Map</a>. Check the course against your race edition.</p><a href="https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export" target="_blank" rel="noopener noreferrer">Strava export guide ↗</a></details>
+      <details class="guide"><summary>Create a detailed map</summary><p>Use Mini Skyline with your GPX. Set the footprint to 133 × 117 mm, keep the route as a separate named part, and export a multipart 3MF.</p><p class="help">To reduce file size, turn off landmark models, detailed stadiums, dormers and chimneys, stepped towers, church towers, minarets and domes, window detail, and bay windows. Choose thicker detail.</p><a class="secondary external-button" href="https://miniskyline.com/map" target="_blank" rel="noopener noreferrer">Open Mini Skyline <span>↗</span></a></details>
+      <label class="file-label">Import detailed map<input id="map-upload" type="file" accept=".3mf,.stl"><span class="help">3MF or STL · max ${MAX_MAP_FILE_MB} MB compressed / ${MAX_EXPANDED_MAP_MB} MB expanded · 5 million triangles. Uniformly scaled to fit.</span></label>
+      ${imported ? `<div class="notice success"><strong>Map ready</strong><p>${imported.dimensions.width.toFixed(1)} × ${imported.dimensions.height.toFixed(1)} × ${imported.dimensions.depth.toFixed(1)} mm · scaled to fit. Check height before printing.</p></div><label>Route highlight<select id="route-part"><option value="">Choose route part</option>${imported.parts.map((mesh, i) => `<option value="${i}" ${mesh.userData.route ? 'selected' : ''}>${xmlEscape(mesh.name)} (${i + 1})</option>`).join('')}</select></label><p class="help">Highlighting requires a separate named route part.</p><button id="clear-map" class="text-button">Remove map</button>` : ''}
       ${proposalPanel()}
-      <button class="primary next-step" data-go="print">Next: get print-ready <span>→</span></button>`;
+      <button class="primary next-step" data-go="print">Next <span>→</span></button>`;
   } else {
     const glueKeys = resultKeys.filter((key) => design.placements[key] === 'separate');
     if (!glueKeys.includes(kitField)) kitField = glueKeys[0] ?? 'time';
     $('#panel').innerHTML = `
-      <div class="section-heading"><div><p class="eyebrow">FROM FINISH LINE TO FILAMENT</p><h2>Make it tangible.</h2></div><span class="small-tag">03 / 03</span></div>
-      <div class="export-card"><div class="export-icon">↧</div><div><h3>The complete display</h3><p>One ZIP: whole plate, whole map, frames, lid, ribbon holder and all spacers.</p></div></div>
-      ${!imported ? '<div class="notice"><strong>Includes the supplied example map</strong><p>No custom detailed map is loaded. The ZIP will include an explicitly labelled example—not the selected race course or your GPX schematic.</p></div>' : ''}
-      ${glueKeys.length ? `<label>Loose digits in the complete ZIP<select id="complete-characters"><option value="kit" ${completeCharacters === 'kit' ? 'selected' : ''}>Number kits for all glue-on fields</option><option value="exact" ${completeCharacters === 'exact' ? 'selected' : ''}>Only entered result digits</option></select></label><p class="help">Kits use the character quantities below, repeated for each glue-on field. Exact results must be valid; kits work before the race.</p>` : ''}
+      <div class="section-heading"><h2>Print</h2><span class="small-tag">03 / 03</span></div>
+      ${!imported ? '<div class="notice"><strong>Example map</strong><p>The ZIP includes the supplied example, not your race course.</p></div>' : ''}
+      ${glueKeys.length ? `<label>Digits in complete ZIP<select id="complete-characters"><option value="kit" ${completeCharacters === 'kit' ? 'selected' : ''}>Number kits</option><option value="exact" ${completeCharacters === 'exact' ? 'selected' : ''}>Entered results only</option></select></label>` : ''}
       <button class="primary export-button" id="complete-download">Download complete display · ZIP <span>↧</span></button>
-      <p class="help">One STL per complete display part, not separate text/body files. STL does not store colour; use the individual 3MF downloads below for colour-separated parts. Loose digits remain individual printable pieces inside this same ZIP.</p>
+      <p class="help">One STL per display part. STL does not store colour.</p>
       <div class="divider"></div>
-      <div class="export-card"><div class="export-icon">↧</div><div><h3>Your medal plate</h3><p>143 × 222 mm · original base & slot<br>0.8 mm raised text · glue-on fields have labels only (plus BIB #)</p></div></div>
-      <button class="primary export-button" data-export="plate-3mf">Download plate · 3MF <span>↧</span></button><button class="secondary export-button" data-export="plate-stl">Download plate · STL parts ZIP <span>↧</span></button>
-      <p class="help">Recommended: 3MF keeps named, colour-separated parts. STL parts must be imported together as one multipart object per numbered assembly, keeping relative positions.</p>
-      ${glueKeys.length ? `<div class="divider"></div><h3>Glue on your finish, after the race.</h3>
-      <p class="help">Loose digits and colon dots only. No labels, #, or backing plates. Print flat at 100% scale, then glue above the matching preprinted labels. The # stays on the plate; start BIB digits 4 mm to its right. Use 2.4 mm character spacing. Each colon has two separate dots; handle tiny parts with tweezers and keep away from children.</p>
-      <button class="secondary" data-export="exact-3mf">Entered results · 3MF <span>↧</span></button>
-      <button class="secondary" data-export="exact-stl">Entered results · STL ZIP <span>↧</span></button>
-      <p class="help">Exact download includes only characters needed for glue-on fields: ${glueKeys.join(', ')}. Enter valid results in step 01 when known. Blank results do not prevent printing the plate or kit.</p>
-      <label>Number kit for<select id="kit-field">${glueKeys.map((key) => `<option value="${key}" ${key === kitField ? 'selected' : ''}>${key.toUpperCase()} · matching colour</option>`).join('')}</select></label>
+      <div class="export-card"><div class="export-icon">↧</div><div><h3>Medal plate</h3><p>143 × 222 mm · original base and slot</p></div></div>
+      ${glueKeys.length ? `<div class="divider"></div><h3>Glue-on digits</h3>
+      <p class="help">Print flat at 100%; glue above labels with 2.4 mm spacing. Start BIB digits 4 mm after #. Keep colon dots in position; use tweezers and keep small parts from children.</p>
+      <button class="secondary" data-export="exact-3mf">Entered digits · 3MF <span>↧</span></button>
+      <button class="secondary" data-export="exact-stl">Entered digits · STL ZIP <span>↧</span></button>
+      <p class="help">Exact digits need entered results; number kits work before the race.</p>
+      <label>Number kit field<select id="kit-field">${glueKeys.map((key) => `<option value="${key}" ${key === kitField ? 'selected' : ''}>${key.toUpperCase()} · matching colour</option>`).join('')}</select></label>
       <div class="kit-grid">${[...kitCharacters].map((character) => `<label>${character === ':' ? ': (colon)' : character}<input type="number" min="0" max="20" step="1" data-kit="${character}" aria-label="Copies of ${character === ':' ? 'colon' : character}" value="${kitCounts[character]}"></label>`).join('')}</div>
       <button class="secondary" data-export="kit-3mf">Number kit · 3MF <span>↧</span></button>
       <button class="secondary" data-export="kit-stl">Number kit · STL ZIP <span>↧</span></button>
-      <p class="help">Choose 0–20 copies of each character. All kits use the same fixed-size digits; choose the field to match its colour. Print extra copies for repeated digits.</p>` : ''}
+      <p class="help">Choose 0–20 copies of each character.</p>` : ''}
       <div class="divider"></div>
-      <div class="export-card"><div class="export-icon">⌁</div><div><h3>Your route map</h3><p>${imported ? `${imported.dimensions.width.toFixed(1)} × ${imported.dimensions.height.toFixed(1)} mm · imported detailed map` : 'Import a detailed map in step 02 to unlock export.'}</p></div></div>
+      ${imported ? `<div class="export-card"><div class="export-icon">⌁</div><div><h3>Route map</h3><p>${imported.dimensions.width.toFixed(1)} × ${imported.dimensions.height.toFixed(1)} mm · imported</p></div></div>` : ''}
       ${activeCourse ? `<div class="notice"><strong>Community map — unofficial</strong><p>${xmlEscape(activeCourse.title)} · ${activeCourse.year} · ${activeCourse.distanceKm} km<br>Credits: ${xmlEscape(activeCourse.attribution)}<br>Licence: ${xmlEscape(activeCourse.license)}</p><a href="${xmlEscape(activeCourse.reviewUrl)}" target="_blank" rel="noopener noreferrer">View review and source details ↗</a></div>` : ''}
-      <button class="primary export-button" data-export="map-3mf">Download map · 3MF <span>↧</span></button><button class="secondary export-button" data-export="map-stl">Download map · STL parts ZIP <span>↧</span></button>
-      <p class="help">Imported 3MF source files and their credits are retained inside the new 3MF or STL package. Preserve their attribution and check source licensing.</p>
-      <details class="guide" open><summary>A good first print</summary><ul><li>Start with a 0.4 mm nozzle and 0.2 mm layers. Inspect small lettering in your slicer.</li><li>Assign filaments to named parts. For a single-colour printer, add a layer change at 3.5 mm for plate text, or print loose digits separately.</li><li>Keep attached text and base together as one assembly. Loose glue-on characters are separate downloads and print on the bed.</li><li>Check your bed fits 143 × 222 mm. Dry-fit the map and plate in the supplied frames before gluing.</li><li>The map height is not automatically trimmed. Check clearance beneath the frame and medal.</li></ul></details>
-      <button class="text-button" data-go="plate">← Back to the plate</button>
+      ${imported ? '<p class="help">Map source and credits are included. Keep attribution and check its licence.</p>' : ''}
+      <details class="guide"><summary>Print tips</summary><ul><li>Start with a 0.4 mm nozzle and 0.2 mm layers; inspect small details in the slicer.</li><li>Check the 143 × 222 mm bed fit, map clearance and dry-fit before gluing.</li><li>For a single-colour printer, add a layer change at 3.5 mm.</li></ul></details>
+      <button class="text-button" data-go="plate">← Back</button>
       <div id="download-status" role="status" class="download-status"></div>`;
   }
   updateStatus();
