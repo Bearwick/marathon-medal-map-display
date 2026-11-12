@@ -60,5 +60,21 @@
 		"files": {
 			"gpx": "helsinki/helsinki-2027-marathon/route.gpx"
 		}
+	},
+	{
+		"id": "helsinki-2026-5k",
+		"raceId": "helsinki",
+		"curation": "community",
+		"year": 2026,
+		"distanceKm": 5,
+		"title": "Helsinki City Marathon 2026 course",
+		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicity5/",
+		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/11",
+		"license": "MIT",
+		"attribution": "No",
+		"notes": "",
+		"files": {
+			"gpx": "helsinki/helsinki-2026-5k/route.gpx"
+		}
 	}
 ]
