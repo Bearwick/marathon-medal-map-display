@@ -58,7 +58,7 @@ export function buildAssembly(parts: Record<PartKey, BufferGeometry>, plate: Gro
   // Upper frame (plate) above, lower frame (map) below, joined at their low end walls.
   add(parts.upper, frameMaterial, 0, UPPER_LENGTH / 2, 0);
   add(parts.lower, frameMaterial, 0, -LOWER_LENGTH / 2, 0, Math.PI);
-  add(parts.lid, frameMaterial, 0, UPPER_LENGTH - LID_LENGTH / 2, 0, -Math.PI / 2); // idiot
+  add(parts.lid, frameMaterial, 0, UPPER_LENGTH - LID_LENGTH / 2, 0, -Math.PI / 2);
   const mapCenter = -(LOWER_LENGTH - 3.5 - MAP_TILE_HEIGHT / 2) - 0.8;
   add(parts.mapSpacer, spacerMaterial, 0, mapCenter, FLOOR, Math.PI / 2);
   const plateClone = plate.clone();
