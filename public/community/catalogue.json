@@ -60,5 +60,21 @@
 		"files": {
 			"gpx": "helsinki/helsinki-2027-marathon/route.gpx"
 		}
+	},
+	{
+		"id": "oslo-2026-10k",
+		"raceId": "oslo",
+		"curation": "community",
+		"year": 2026,
+		"distanceKm": 10,
+		"title": "Oslo Maraton 2026 course",
+		"sourceUrl": "https://oslomaraton.no/loypa-2/",
+		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/12",
+		"license": "MIT",
+		"attribution": "No",
+		"notes": "",
+		"files": {
+			"gpx": "oslo/oslo-2026-10k/route.gpx"
+		}
 	}
 ]
