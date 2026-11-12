@@ -15,7 +15,7 @@ import { exportCompleteDisplay, parseAssemblyFiles, wholeModelStl } from './comp
 let font: Font;
 let base: BufferGeometry;
 beforeAll(() => {
-  font = new FontLoader().parse(JSON.parse(readFileSync('public/generated/font.json', 'utf8')));
+  font = new FontLoader().parse(JSON.parse(readFileSync('public/generated/fonts/helvetiker_bold.typeface.json', 'utf8')));
   const file = readFileSync('public/generated/plate-base.stl');
   base = normalizeBase(new STLLoader().parse(file.buffer.slice(file.byteOffset, file.byteOffset + file.byteLength)));
 });
@@ -60,7 +60,7 @@ describe('complete display ZIP', () => {
     expect(geometry.boundingBox!.max.z).toBeCloseTo(4.3, 3);
     expect(new DataView(files['obj_2_Customized Map.stl'].buffer).getUint32(80, true)).toBe(24);
     expect(files['source-credits/OriginalMapSource.3mf']).toEqual(source);
-    expect(strFromU8(files['source-credits/COMMUNITY-CREDITS.txt'])).toContain('Unofficial');
+    expect(strFromU8(files['source-credits/CREDITS.txt'])).toContain('Unofficial');
     geometry.dispose(); disposeGroup(plate); disposeGroup(map);
   });
   it('explicitly labels and includes the supplied example when a map is absent', async () => {

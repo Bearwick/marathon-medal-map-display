@@ -8,6 +8,8 @@ interface CompleteDisplay {
   characters: Group[];
   originalMapSource?: Uint8Array;
   credits?: string;
+  /** Settings a generated map was built from (JSON), so it can be reproduced. */
+  mapSettings?: string;
   usesExample: boolean;
 }
 
@@ -52,7 +54,8 @@ export async function exportCompleteDisplay(input: CompleteDisplay): Promise<Uin
     }
   }
   if (input.originalMapSource) files['source-credits/OriginalMapSource.3mf'] = input.originalMapSource;
-  if (input.credits) files['source-credits/COMMUNITY-CREDITS.txt'] = strToU8(input.credits);
+  if (input.credits) files['source-credits/CREDITS.txt'] = strToU8(input.credits);
+  if (input.mapSettings) files['source-credits/MAP-SETTINGS.json'] = strToU8(input.mapSettings);
   const manifest = parseAssemblyFiles(JSON.parse(new TextDecoder().decode(await readAsset('assembly.json'))));
   const originals = await Promise.all(manifest.map(async (name) => [name, await readAsset(`assembly/${encodeURIComponent(name)}`)] as const));
   originals.forEach(([name, bytes]) => { files[name] = bytes; });
@@ -63,10 +66,10 @@ export async function exportCompleteDisplay(input: CompleteDisplay): Promise<Uin
     'One STL per complete printable display part. The customized plate includes its base, attached text, fixed labels and BIB prefix in one file. The customized map includes all its bodies in one file. No separate text/base/map-layer STL imports are needed.',
     'STL contains triangle surfaces, not filament colours. Keep connected/touching shells together and slice as a union; do not split the complete plate or map into independently placed bodies.',
     '',
-    input.usesExample ? 'WARNING: The map is the supplied EXAMPLE. It is NOT a course for the selected race or an organizer-verified map. Any GPX preview is not a detailed printable map.' : 'Map: customized imported geometry. Confirm the route, edition and distance. Community maps remain unofficial.',
+    input.usesExample ? 'WARNING: The map is the supplied EXAMPLE. It is NOT a course for the selected race or an organizer-verified map. Any GPX preview is not a detailed printable map.' : input.mapSettings ? 'Map: generated from OpenStreetMap data for the framed area (see source-credits/). Confirm the route, edition and distance. Known/community courses remain unofficial.' : 'Map: customized imported geometry. Confirm the route, edition and distance. Community maps remain unofficial.',
     '',
     'Original assembly files: lower and upper frames, ribbon holder, lid, plate/map spacers and both alternative medal spacers. Original geometry and coordinates are preserved. Position/rotate each part on the bed in your slicer; choose the medal spacer that suits your medal.',
-    'Plate footprint: 143 x 222 mm, 3.5 mm base, 0.8 mm raised text. Imported maps are scaled uniformly to fit the original map footprint; inspect their Z clearance and dry-fit all parts before gluing.',
+    'Plate footprint: 143 x 222 mm, 3.5 mm base, 0.8 mm raised text. Maps fill the 133 x 117 mm frame window; a thin flat rim (at most 1.7 mm) extends them to the 141 x 120.9 mm tile that slides under the frame lip. Maps up to 4.7 mm deep sit flush with the frame front. Dry-fit all parts before gluing.',
     '',
     'Loose glue-on characters, when selected, are in glue-on-digits/. Each file contains only a digit or the two colon dots, with no backing. Print at 100% scale, Z=0, 0.8 mm thick. Keep colon dots in relative position. Place above matching labels using 2.4 mm character spacing; start BIB digits 4 mm right of the fixed #. Handle tiny parts with tweezers and keep away from children.',
     'Inspect sliced small text and thin map features. A 0.4 mm nozzle / 0.2 mm layers is a starting point, not a guarantee; loose digits may need a finer nozzle.',

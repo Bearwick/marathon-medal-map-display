@@ -21,26 +21,39 @@ export interface Race {
   city: string;
   country: string;
   url: string;
+  /** City centre [longitude, latitude]; only used to centre the map picker. */
+  center: [number, number];
+  /** Default plate units for the race's country. */
+  units: Units;
 }
 
 // Names are catalogue metadata, not claims that a course GPX is bundled.
 export const races: Race[] = [
-  { id: 'oslo', name: 'Oslo Maraton', city: 'Oslo', country: 'Norway', url: 'https://oslomaraton.no/' },
-  { id: 'bergen', name: 'Bergen City Marathon', city: 'Bergen', country: 'Norway', url: 'https://bergencitymarathon.no/en/' },
-  { id: 'copenhagen', name: 'Copenhagen Marathon', city: 'Copenhagen', country: 'Denmark', url: 'https://copenhagenmarathon.dk/en/' },
-  { id: 'stockholm', name: 'Stockholm Marathon', city: 'Stockholm', country: 'Sweden', url: 'https://stockholmmarathon.se/' },
-  { id: 'helsinki', name: 'Helsinki City Marathon', city: 'Helsinki', country: 'Finland', url: 'https://helsinkicityrun.fi/en/' },
-  { id: 'tokyo', name: 'Tokyo Marathon', city: 'Tokyo', country: 'Japan', url: 'https://www.marathon.tokyo/en/' },
-  { id: 'boston', name: 'Boston Marathon', city: 'Boston', country: 'USA', url: 'https://www.baa.org/' },
-  { id: 'london', name: 'London Marathon', city: 'London', country: 'UK', url: 'https://www.londonmarathonevents.co.uk/london-marathon' },
-  { id: 'cape-town', name: 'Cape Town Marathon', city: 'Cape Town', country: 'South Africa', url: 'https://capetownmarathon.com/' },
-  { id: 'sydney', name: 'Sydney Marathon', city: 'Sydney', country: 'Australia', url: 'https://sydneymarathon.com/' },
-  { id: 'berlin', name: 'Berlin Marathon', city: 'Berlin', country: 'Germany', url: 'https://www.bmw-berlin-marathon.com/en/' },
-  { id: 'chicago', name: 'Chicago Marathon', city: 'Chicago', country: 'USA', url: 'https://www.chicagomarathon.com/' },
-  { id: 'new-york', name: 'New York City Marathon', city: 'New York', country: 'USA', url: 'https://www.nyrr.org/tcsnycmarathon' },
-  { id: 'valencia', name: 'Valencia Marathon', city: 'Valencia', country: 'Spain', url: 'https://www.valenciaciudaddelrunning.com/en/' },
-  { id: 'paris', name: 'Paris Marathon', city: 'Paris', country: 'France', url: 'https://www.schneiderelectricparismarathon.com/en/' },
+  { id: 'oslo', name: 'Oslo Maraton', city: 'Oslo', country: 'Norway', url: 'https://oslomaraton.no/', center: [10.7522, 59.9139], units: 'metric' },
+  { id: 'bergen', name: 'Bergen City Marathon', city: 'Bergen', country: 'Norway', url: 'https://bergencitymarathon.no/en/', center: [5.3221, 60.3913], units: 'metric' },
+  { id: 'copenhagen', name: 'Copenhagen Marathon', city: 'Copenhagen', country: 'Denmark', url: 'https://copenhagenmarathon.dk/en/', center: [12.5683, 55.6761], units: 'metric' },
+  { id: 'stockholm', name: 'Stockholm Marathon', city: 'Stockholm', country: 'Sweden', url: 'https://stockholmmarathon.se/', center: [18.0686, 59.3293], units: 'metric' },
+  { id: 'helsinki', name: 'Helsinki City Marathon', city: 'Helsinki', country: 'Finland', url: 'https://helsinkicityrun.fi/en/', center: [24.9384, 60.1699], units: 'metric' },
+  { id: 'tokyo', name: 'Tokyo Marathon', city: 'Tokyo', country: 'Japan', url: 'https://www.marathon.tokyo/en/', center: [139.7671, 35.6812], units: 'metric' },
+  { id: 'boston', name: 'Boston Marathon', city: 'Boston', country: 'USA', url: 'https://www.baa.org/', center: [-71.0589, 42.3601], units: 'imperial' },
+  { id: 'london', name: 'London Marathon', city: 'London', country: 'UK', url: 'https://www.londonmarathonevents.co.uk/london-marathon', center: [-0.1276, 51.5072], units: 'metric' },
+  { id: 'cape-town', name: 'Cape Town Marathon', city: 'Cape Town', country: 'South Africa', url: 'https://capetownmarathon.com/', center: [18.4241, -33.9249], units: 'metric' },
+  { id: 'sydney', name: 'Sydney Marathon', city: 'Sydney', country: 'Australia', url: 'https://sydneymarathon.com/', center: [151.2093, -33.8688], units: 'metric' },
+  { id: 'berlin', name: 'Berlin Marathon', city: 'Berlin', country: 'Germany', url: 'https://www.bmw-berlin-marathon.com/en/', center: [13.4050, 52.5200], units: 'metric' },
+  { id: 'chicago', name: 'Chicago Marathon', city: 'Chicago', country: 'USA', url: 'https://www.chicagomarathon.com/', center: [-87.6298, 41.8781], units: 'imperial' },
+  { id: 'new-york', name: 'New York City Marathon', city: 'New York', country: 'USA', url: 'https://www.nyrr.org/tcsnycmarathon', center: [-74.0060, 40.7128], units: 'imperial' },
+  { id: 'valencia', name: 'Valencia Marathon', city: 'Valencia', country: 'Spain', url: 'https://www.valenciaciudaddelrunning.com/en/', center: [-0.3763, 39.4699], units: 'metric' },
+  { id: 'paris', name: 'Paris Marathon', city: 'Paris', country: 'France', url: 'https://www.schneiderelectricparismarathon.com/en/', center: [2.3522, 48.8566], units: 'metric' },
 ];
+
+export type Units = 'metric' | 'imperial';
+export const KM_PER_MILE = 1.609344;
+export const fonts = [
+  { id: 'helvetiker', name: 'Helvetiker Bold (basic Latin only)', file: 'helvetiker_bold.typeface.json' },
+  { id: 'droid-sans', name: 'Droid Sans Bold (Æ Ø Å Ä Ö Ü É…)', file: 'droid_sans_bold.typeface.json' },
+  { id: 'droid-serif', name: 'Droid Serif Bold (Æ Ø Å Ä Ö Ü É…)', file: 'droid_serif_bold.typeface.json' },
+] as const;
+export type FontId = typeof fonts[number]['id'];
 
 export type Placement = 'attached' | 'separate' | 'hidden';
 export const resultKeys = ['time', 'pace', 'bib'] as const;
@@ -70,6 +83,8 @@ export interface Design {
   pace: string;
   autoPace: boolean;
   bib: string;
+  units: Units;
+  font: FontId;
   placements: Record<'time' | 'pace' | 'bib', Placement>;
   colours: Record<ColourKey, string>;
 }
@@ -79,6 +94,7 @@ export function initialDesign(): Design {
     distanceId: 'marathon', customKm: '42.195', title: 'MARATHON',
     raceId: 'oslo', location: 'OSLO', date: '2026-09-12',
     time: '03:42:18', pace: '', autoPace: true, bib: '2048',
+    units: 'metric', font: 'droid-sans',
     placements: { time: 'attached', pace: 'attached', bib: 'attached' },
     colours: {
       base: '#283b37', title: '#f1eadb', location: '#f1eadb', date: '#d3c9b3',
@@ -89,6 +105,16 @@ export function initialDesign(): Design {
 
 export function distanceKm(design: Design): number {
   return design.distanceId === 'custom' ? Number(design.customKm) : distances.find((d) => d.id === design.distanceId)!.km;
+}
+
+/** Distance as printed on the plate, e.g. 42.195K or 26.2MI. */
+export function distanceText(design: Design): string {
+  const km = distanceKm(design);
+  return design.units === 'imperial' ? `${Number((km / KM_PER_MILE).toFixed(1))}MI` : `${Number(km.toFixed(3))}K`;
+}
+
+export function unitLabel(design: Design): 'KM' | 'MI' {
+  return design.units === 'imperial' ? 'MI' : 'KM';
 }
 
 export function parseTime(value: string): number {
@@ -106,7 +132,8 @@ export function paceText(design: Design): string {
     }
     return design.pace;
   }
-  const seconds = Math.round(parseTime(design.time) / distanceKm(design));
+  const km = distanceKm(design);
+  const seconds = Math.round(parseTime(design.time) / (design.units === 'imperial' ? km / KM_PER_MILE : km));
   if (!Number.isFinite(seconds)) throw new Error('Enter a valid distance to calculate pace.');
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 }

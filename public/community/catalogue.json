@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "boston-osm-marathon",
+    "raceId": "boston",
+    "curation": "maintainer",
+    "year": 2026,
+    "date": "2026-04-20",
+    "distanceKm": 42.195,
+    "title": "Boston Marathon course (OpenStreetMap)",
+    "sourceUrl": "https://www.openstreetmap.org/relation/11680552",
+    "license": "Open Database License (ODbL) 1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "notes": "Traced from OpenStreetMap route relation 11680552 on 12 Nov 2026 with scripts/osm-course-to-gpx.mjs (5 m simplification, 42.38 km). Hopkinton to Boylston Street point-to-point course; not checked against the organizer's map for a specific edition.",
+    "files": {
+      "gpx": "boston-osm/route.gpx"
+    }
+  }
+]

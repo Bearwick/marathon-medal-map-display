@@ -28,7 +28,7 @@ function colour(material: Material | undefined): string {
   return `#${(material instanceof MeshStandardMaterial ? material.color : new Color('#dddddd')).getHexString().toUpperCase()}FF`;
 }
 
-export function export3mf(group: Group, originalSource?: Uint8Array, communityCredits?: string): Uint8Array {
+export function export3mf(group: Group, originalSource?: Uint8Array, credits?: string): Uint8Array {
   const resources: string[] = [];
   const build: string[] = [];
   const materials: string[] = [];
@@ -87,11 +87,11 @@ export function export3mf(group: Group, originalSource?: Uint8Array, communityCr
     '3D/3dmodel.model': strToU8(model),
   };
   if (originalSource) files['Metadata/OriginalSource.3mf'] = originalSource;
-  if (communityCredits) files['Metadata/COMMUNITY-CREDITS.txt'] = strToU8(communityCredits);
+  if (credits) files['Metadata/CREDITS.txt'] = strToU8(credits);
   return zipSync(files, { level: 6 });
 }
 
-export function exportStls(group: Group, originalSource?: Uint8Array, communityCredits?: string): Uint8Array {
+export function exportStls(group: Group, originalSource?: Uint8Array, credits?: string): Uint8Array {
   const files: Record<string, Uint8Array> = {};
   const exporter = new STLExporter();
   for (const [i, assembly] of assemblies(group).entries()) {
@@ -102,7 +102,7 @@ export function exportStls(group: Group, originalSource?: Uint8Array, communityC
     }
   }
   if (originalSource) files['OriginalSource.3mf'] = originalSource;
-  if (communityCredits) files['COMMUNITY-CREDITS.txt'] = strToU8(communityCredits);
+  if (credits) files['CREDITS.txt'] = strToU8(credits);
   files['PRINT-INSTRUCTIONS.txt'] = strToU8(
     'FINISHLINE / PRINT PARTS\n\nUnits: millimetres. Z is up.\nSTL does not store colour. Prefer the multipart 3MF download for colour printing.\n\nFor each numbered assembly, import its STL files together as ONE object with multiple parts. Keep their original relative positions. Do not drop attached text bodies to the bed independently. Assign filament to the named parts, then slice the object as a union.\n\nGlue-on mode keeps TIME, PACE / KM, BIB labels and the BIB # on the display. Digits are downloaded separately: either entered results or a reusable 0-9 and colon kit. Character files contain only 0.8 mm thick digits or colon dots, with no backing plates, labels or #. Each numbered character is a separate assembly on Z=0. Print at 100% scale, face-up, then glue above the matching label using 2.4 mm character spacing. Start BIB digits 4 mm right of the fixed #. Colons have two disconnected dots: retain their relative positions and use tweezers. Inspect small parts in your slicer; a finer nozzle may be necessary. Keep loose pieces away from children.\n\nPlate: 143 x 222 x 3.5 mm base; text reaches 4.3 mm. Use a bed that fits the plate, or rotate it in your slicer. Start with a 0.4 mm nozzle and 0.2 mm layers; inspect small text and thin walls in the sliced preview. Some fonts or imported maps may need finer settings.\n\nColour previews are suggestions, not printer instructions. A manual filament change can change all features above a layer; different colours at the same height require multi-material hardware or separately printed parts.\n\nFor imported maps, retain original source attribution and check its licence before redistribution or sale. If present, OriginalSource.3mf preserves the complete original file and credits.\n'
   );
