@@ -1,0 +1,2507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Source: https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/paris-2026.gpx
+     Distributed with cheersquad under GNU GPL version 3; see ../../GPL-3.0.txt.
+     Modified 2026-11-13: removed timestamps; coordinates and elevation unchanged.
+     Unofficial course; compare with the organizer before printing. -->
+ <gpx creator="Garmin Connect" version="1.1"
+	 xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd"
+	 xmlns:ns3="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+	 xmlns="http://www.topografix.com/GPX/1/1"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
+	 <metadata>
+		<name>Marathon de Paris 2026</name>
+<desc>
+
+Licence for this GPX asset (distributed with logie4000/cheersquad):
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. &lt;https://fsf.org/&gt;
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+                            Preamble
+
+  The GNU General Public License is a free, copyleft license for
+software and other kinds of works.
+
+  The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works.  By contrast,
+the GNU General Public License is intended to guarantee your freedom to
+share and change all versions of a program--to make sure it remains free
+software for all its users.  We, the Free Software Foundation, use the
+GNU General Public License for most of our software; it applies also to
+any other work released this way by its authors.  You can apply it to
+your programs, too.
+
+  When we speak of free software, we are referring to freedom, not
+price.  Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+them if you wish), that you receive source code or can get it if you
+want it, that you can change the software or use pieces of it in new
+free programs, and that you know you can do these things.
+
+  To protect your rights, we need to prevent others from denying you
+these rights or asking you to surrender the rights.  Therefore, you have
+certain responsibilities if you distribute copies of the software, or if
+you modify it: responsibilities to respect the freedom of others.
+
+  For example, if you distribute copies of such a program, whether
+gratis or for a fee, you must pass on to the recipients the same
+freedoms that you received.  You must make sure that they, too, receive
+or can get the source code.  And you must show them these terms so they
+know their rights.
+
+  Developers that use the GNU GPL protect your rights with two steps:
+(1) assert copyright on the software, and (2) offer you this License
+giving you legal permission to copy, distribute and/or modify it.
+
+  For the developers' and authors' protection, the GPL clearly explains
+that there is no warranty for this free software.  For both users' and
+authors' sake, the GPL requires that modified versions be marked as
+changed, so that their problems will not be attributed erroneously to
+authors of previous versions.
+
+  Some devices are designed to deny users access to install or run
+modified versions of the software inside them, although the manufacturer
+can do so.  This is fundamentally incompatible with the aim of
+protecting users' freedom to change the software.  The systematic
+pattern of such abuse occurs in the area of products for individuals to
+use, which is precisely where it is most unacceptable.  Therefore, we
+have designed this version of the GPL to prohibit the practice for those
+products.  If such problems arise substantially in other domains, we
+stand ready to extend this provision to those domains in future versions
+of the GPL, as needed to protect the freedom of users.
+
+  Finally, every program is threatened constantly by software patents.
+States should not allow patents to restrict development and use of
+software on general-purpose computers, but in those that do, we wish to
+avoid the special danger that patents applied to a free program could
+make it effectively proprietary.  To prevent this, the GPL assures that
+patents cannot be used to render the program non-free.
+
+  The precise terms and conditions for copying, distribution and
+modification follow.
+
+                       TERMS AND CONDITIONS
+
+  0. Definitions.
+
+  "This License" refers to version 3 of the GNU General Public License.
+
+  "Copyright" also means copyright-like laws that apply to other kinds of
+works, such as semiconductor masks.
+
+  "The Program" refers to any copyrightable work licensed under this
+License.  Each licensee is addressed as "you".  "Licensees" and
+"recipients" may be individuals or organizations.
+
+  To "modify" a work means to copy from or adapt all or part of the work
+in a fashion requiring copyright permission, other than the making of an
+exact copy.  The resulting work is called a "modified version" of the
+earlier work or a work "based on" the earlier work.
+
+  A "covered work" means either the unmodified Program or a work based
+on the Program.
+
+  To "propagate" a work means to do anything with it that, without
+permission, would make you directly or secondarily liable for
+infringement under applicable copyright law, except executing it on a
+computer or modifying a private copy.  Propagation includes copying,
+distribution (with or without modification), making available to the
+public, and in some countries other activities as well.
+
+  To "convey" a work means any kind of propagation that enables other
+parties to make or receive copies.  Mere interaction with a user through
+a computer network, with no transfer of a copy, is not conveying.
+
+  An interactive user interface displays "Appropriate Legal Notices"
+to the extent that it includes a convenient and prominently visible
+feature that (1) displays an appropriate copyright notice, and (2)
+tells the user that there is no warranty for the work (except to the
+extent that warranties are provided), that licensees may convey the
+work under this License, and how to view a copy of this License.  If
+the interface presents a list of user commands or options, such as a
+menu, a prominent item in the list meets this criterion.
+
+  1. Source Code.
+
+  The "source code" for a work means the preferred form of the work
+for making modifications to it.  "Object code" means any non-source
+form of a work.
+
+  A "Standard Interface" means an interface that either is an official
+standard defined by a recognized standards body, or, in the case of
+interfaces specified for a particular programming language, one that
+is widely used among developers working in that language.
+
+  The "System Libraries" of an executable work include anything, other
+than the work as a whole, that (a) is included in the normal form of
+packaging a Major Component, but which is not part of that Major
+Component, and (b) serves only to enable use of the work with that
+Major Component, or to implement a Standard Interface for which an
+implementation is available to the public in source code form.  A
+"Major Component", in this context, means a major essential component
+(kernel, window system, and so on) of the specific operating system
+(if any) on which the executable work runs, or a compiler used to
+produce the work, or an object code interpreter used to run it.
+
+  The "Corresponding Source" for a work in object code form means all
+the source code needed to generate, install, and (for an executable
+work) run the object code and to modify the work, including scripts to
+control those activities.  However, it does not include the work's
+System Libraries, or general-purpose tools or generally available free
+programs which are used unmodified in performing those activities but
+which are not part of the work.  For example, Corresponding Source
+includes interface definition files associated with source files for
+the work, and the source code for shared libraries and dynamically
+linked subprograms that the work is specifically designed to require,
+such as by intimate data communication or control flow between those
+subprograms and other parts of the work.
+
+  The Corresponding Source need not include anything that users
+can regenerate automatically from other parts of the Corresponding
+Source.
+
+  The Corresponding Source for a work in source code form is that
+same work.
+
+  2. Basic Permissions.
+
+  All rights granted under this License are granted for the term of
+copyright on the Program, and are irrevocable provided the stated
+conditions are met.  This License explicitly affirms your unlimited
+permission to run the unmodified Program.  The output from running a
+covered work is covered by this License only if the output, given its
+content, constitutes a covered work.  This License acknowledges your
+rights of fair use or other equivalent, as provided by copyright law.
+
+  You may make, run and propagate covered works that you do not
+convey, without conditions so long as your license otherwise remains
+in force.  You may convey covered works to others for the sole purpose
+of having them make modifications exclusively for you, or provide you
+with facilities for running those works, provided that you comply with
+the terms of this License in conveying all material for which you do
+not control copyright.  Those thus making or running the covered works
+for you must do so exclusively on your behalf, under your direction
+and control, on terms that prohibit them from making any copies of
+your copyrighted material outside their relationship with you.
+
+  Conveying under any other circumstances is permitted solely under
+the conditions stated below.  Sublicensing is not allowed; section 10
+makes it unnecessary.
+
+  3. Protecting Users' Legal Rights From Anti-Circumvention Law.
+
+  No covered work shall be deemed part of an effective technological
+measure under any applicable law fulfilling obligations under article
+11 of the WIPO copyright treaty adopted on 20 December 1996, or
+similar laws prohibiting or restricting circumvention of such
+measures.
+
+  When you convey a covered work, you waive any legal power to forbid
+circumvention of technological measures to the extent such circumvention
+is effected by exercising rights under this License with respect to
+the covered work, and you disclaim any intention to limit operation or
+modification of the work as a means of enforcing, against the work's
+users, your or third parties' legal rights to forbid circumvention of
+technological measures.
+
+  4. Conveying Verbatim Copies.
+
+  You may convey verbatim copies of the Program's source code as you
+receive it, in any medium, provided that you conspicuously and
+appropriately publish on each copy an appropriate copyright notice;
+keep intact all notices stating that this License and any
+non-permissive terms added in accord with section 7 apply to the code;
+keep intact all notices of the absence of any warranty; and give all
+recipients a copy of this License along with the Program.
+
+  You may charge any price or no price for each copy that you convey,
+and you may offer support or warranty protection for a fee.
+
+  5. Conveying Modified Source Versions.
+
+  You may convey a work based on the Program, or the modifications to
+produce it from the Program, in the form of source code under the
+terms of section 4, provided that you also meet all of these conditions:
+
+    a) The work must carry prominent notices stating that you modified
+    it, and giving a relevant date.
+
+    b) The work must carry prominent notices stating that it is
+    released under this License and any conditions added under section
+    7.  This requirement modifies the requirement in section 4 to
+    "keep intact all notices".
+
+    c) You must license the entire work, as a whole, under this
+    License to anyone who comes into possession of a copy.  This
+    License will therefore apply, along with any applicable section 7
+    additional terms, to the whole of the work, and all its parts,
+    regardless of how they are packaged.  This License gives no
+    permission to license the work in any other way, but it does not
+    invalidate such permission if you have separately received it.
+
+    d) If the work has interactive user interfaces, each must display
+    Appropriate Legal Notices; however, if the Program has interactive
+    interfaces that do not display Appropriate Legal Notices, your
+    work need not make them do so.
+
+  A compilation of a covered work with other separate and independent
+works, which are not by their nature extensions of the covered work,
+and which are not combined with it such as to form a larger program,
+in or on a volume of a storage or distribution medium, is called an
+"aggregate" if the compilation and its resulting copyright are not
+used to limit the access or legal rights of the compilation's users
+beyond what the individual works permit.  Inclusion of a covered work
+in an aggregate does not cause this License to apply to the other
+parts of the aggregate.
+
+  6. Conveying Non-Source Forms.
+
+  You may convey a covered work in object code form under the terms
+of sections 4 and 5, provided that you also convey the
+machine-readable Corresponding Source under the terms of this License,
+in one of these ways:
+
+    a) Convey the object code in, or embodied in, a physical product
+    (including a physical distribution medium), accompanied by the
+    Corresponding Source fixed on a durable physical medium
+    customarily used for software interchange.
+
+    b) Convey the object code in, or embodied in, a physical product
+    (including a physical distribution medium), accompanied by a
+    written offer, valid for at least three years and valid for as
+    long as you offer spare parts or customer support for that product
+    model, to give anyone who possesses the object code either (1) a
+    copy of the Corresponding Source for all the software in the
+    product that is covered by this License, on a durable physical
+    medium customarily used for software interchange, for a price no
+    more than your reasonable cost of physically performing this
+    conveying of source, or (2) access to copy the
+    Corresponding Source from a network server at no charge.
+
+    c) Convey individual copies of the object code with a copy of the
+    written offer to provide the Corresponding Source.  This
+    alternative is allowed only occasionally and noncommercially, and
+    only if you received the object code with such an offer, in accord
+    with subsection 6b.
+
+    d) Convey the object code by offering access from a designated
+    place (gratis or for a charge), and offer equivalent access to the
+    Corresponding Source in the same way through the same place at no
+    further charge.  You need not require recipients to copy the
+    Corresponding Source along with the object code.  If the place to
+    copy the object code is a network server, the Corresponding Source
+    may be on a different server (operated by you or a third party)
+    that supports equivalent copying facilities, provided you maintain
+    clear directions next to the object code saying where to find the
+    Corresponding Source.  Regardless of what server hosts the
+    Corresponding Source, you remain obligated to ensure that it is
+    available for as long as needed to satisfy these requirements.
+
+    e) Convey the object code using peer-to-peer transmission, provided
+    you inform other peers where the object code and Corresponding
+    Source of the work are being offered to the general public at no
+    charge under subsection 6d.
+
+  A separable portion of the object code, whose source code is excluded
+from the Corresponding Source as a System Library, need not be
+included in conveying the object code work.
+
+  A "User Product" is either (1) a "consumer product", which means any
+tangible personal property which is normally used for personal, family,
+or household purposes, or (2) anything designed or sold for incorporation
+into a dwelling.  In determining whether a product is a consumer product,
+doubtful cases shall be resolved in favor of coverage.  For a particular
+product received by a particular user, "normally used" refers to a
+typical or common use of that class of product, regardless of the status
+of the particular user or of the way in which the particular user
+actually uses, or expects or is expected to use, the product.  A product
+is a consumer product regardless of whether the product has substantial
+commercial, industrial or non-consumer uses, unless such uses represent
+the only significant mode of use of the product.
+
+  "Installation Information" for a User Product means any methods,
+procedures, authorization keys, or other information required to install
+and execute modified versions of a covered work in that User Product from
+a modified version of its Corresponding Source.  The information must
+suffice to ensure that the continued functioning of the modified object
+code is in no case prevented or interfered with solely because
+modification has been made.
+
+  If you convey an object code work under this section in, or with, or
+specifically for use in, a User Product, and the conveying occurs as
+part of a transaction in which the right of possession and use of the
+User Product is transferred to the recipient in perpetuity or for a
+fixed term (regardless of how the transaction is characterized), the
+Corresponding Source conveyed under this section must be accompanied
+by the Installation Information.  But this requirement does not apply
+if neither you nor any third party retains the ability to install
+modified object code on the User Product (for example, the work has
+been installed in ROM).
+
+  The requirement to provide Installation Information does not include a
+requirement to continue to provide support service, warranty, or updates
+for a work that has been modified or installed by the recipient, or for
+the User Product in which it has been modified or installed.  Access to a
+network may be denied when the modification itself materially and
+adversely affects the operation of the network or violates the rules and
+protocols for communication across the network.
+
+  Corresponding Source conveyed, and Installation Information provided,
+in accord with this section must be in a format that is publicly
+documented (and with an implementation available to the public in
+source code form), and must require no special password or key for
+unpacking, reading or copying.
+
+  7. Additional Terms.
+
+  "Additional permissions" are terms that supplement the terms of this
+License by making exceptions from one or more of its conditions.
+Additional permissions that are applicable to the entire Program shall
+be treated as though they were included in this License, to the extent
+that they are valid under applicable law.  If additional permissions
+apply only to part of the Program, that part may be used separately
+under those permissions, but the entire Program remains governed by
+this License without regard to the additional permissions.
+
+  When you convey a copy of a covered work, you may at your option
+remove any additional permissions from that copy, or from any part of
+it.  (Additional permissions may be written to require their own
+removal in certain cases when you modify the work.)  You may place
+additional permissions on material, added by you to a covered work,
+for which you have or can give appropriate copyright permission.
+
+  Notwithstanding any other provision of this License, for material you
+add to a covered work, you may (if authorized by the copyright holders of
+that material) supplement the terms of this License with terms:
+
+    a) Disclaiming warranty or limiting liability differently from the
+    terms of sections 15 and 16 of this License; or
+
+    b) Requiring preservation of specified reasonable legal notices or
+    author attributions in that material or in the Appropriate Legal
+    Notices displayed by works containing it; or
+
+    c) Prohibiting misrepresentation of the origin of that material, or
+    requiring that modified versions of such material be marked in
+    reasonable ways as different from the original version; or
+
+    d) Limiting the use for publicity purposes of names of licensors or
+    authors of the material; or
+
+    e) Declining to grant rights under trademark law for use of some
+    trade names, trademarks, or service marks; or
+
+    f) Requiring indemnification of licensors and authors of that
+    material by anyone who conveys the material (or modified versions of
+    it) with contractual assumptions of liability to the recipient, for
+    any liability that these contractual assumptions directly impose on
+    those licensors and authors.
+
+  All other non-permissive additional terms are considered "further
+restrictions" within the meaning of section 10.  If the Program as you
+received it, or any part of it, contains a notice stating that it is
+governed by this License along with a term that is a further
+restriction, you may remove that term.  If a license document contains
+a further restriction but permits relicensing or conveying under this
+License, you may add to a covered work material governed by the terms
+of that license document, provided that the further restriction does
+not survive such relicensing or conveying.
+
+  If you add terms to a covered work in accord with this section, you
+must place, in the relevant source files, a statement of the
+additional terms that apply to those files, or a notice indicating
+where to find the applicable terms.
+
+  Additional terms, permissive or non-permissive, may be stated in the
+form of a separately written license, or stated as exceptions;
+the above requirements apply either way.
+
+  8. Termination.
+
+  You may not propagate or modify a covered work except as expressly
+provided under this License.  Any attempt otherwise to propagate or
+modify it is void, and will automatically terminate your rights under
+this License (including any patent licenses granted under the third
+paragraph of section 11).
+
+  However, if you cease all violation of this License, then your
+license from a particular copyright holder is reinstated (a)
+provisionally, unless and until the copyright holder explicitly and
+finally terminates your license, and (b) permanently, if the copyright
+holder fails to notify you of the violation by some reasonable means
+prior to 60 days after the cessation.
+
+  Moreover, your license from a particular copyright holder is
+reinstated permanently if the copyright holder notifies you of the
+violation by some reasonable means, this is the first time you have
+received notice of violation of this License (for any work) from that
+copyright holder, and you cure the violation prior to 30 days after
+your receipt of the notice.
+
+  Termination of your rights under this section does not terminate the
+licenses of parties who have received copies or rights from you under
+this License.  If your rights have been terminated and not permanently
+reinstated, you do not qualify to receive new licenses for the same
+material under section 10.
+
+  9. Acceptance Not Required for Having Copies.
+
+  You are not required to accept this License in order to receive or
+run a copy of the Program.  Ancillary propagation of a covered work
+occurring solely as a consequence of using peer-to-peer transmission
+to receive a copy likewise does not require acceptance.  However,
+nothing other than this License grants you permission to propagate or
+modify any covered work.  These actions infringe copyright if you do
+not accept this License.  Therefore, by modifying or propagating a
+covered work, you indicate your acceptance of this License to do so.
+
+  10. Automatic Licensing of Downstream Recipients.
+
+  Each time you convey a covered work, the recipient automatically
+receives a license from the original licensors, to run, modify and
+propagate that work, subject to this License.  You are not responsible
+for enforcing compliance by third parties with this License.
+
+  An "entity transaction" is a transaction transferring control of an
+organization, or substantially all assets of one, or subdividing an
+organization, or merging organizations.  If propagation of a covered
+work results from an entity transaction, each party to that
+transaction who receives a copy of the work also receives whatever
+licenses to the work the party's predecessor in interest had or could
+give under the previous paragraph, plus a right to possession of the
+Corresponding Source of the work from the predecessor in interest, if
+the predecessor has it or can get it with reasonable efforts.
+
+  You may not impose any further restrictions on the exercise of the
+rights granted or affirmed under this License.  For example, you may
+not impose a license fee, royalty, or other charge for exercise of
+rights granted under this License, and you may not initiate litigation
+(including a cross-claim or counterclaim in a lawsuit) alleging that
+any patent claim is infringed by making, using, selling, offering for
+sale, or importing the Program or any portion of it.
+
+  11. Patents.
+
+  A "contributor" is a copyright holder who authorizes use under this
+License of the Program or a work on which the Program is based.  The
+work thus licensed is called the contributor's "contributor version".
+
+  A contributor's "essential patent claims" are all patent claims
+owned or controlled by the contributor, whether already acquired or
+hereafter acquired, that would be infringed by some manner, permitted
+by this License, of making, using, or selling its contributor version,
+but do not include claims that would be infringed only as a
+consequence of further modification of the contributor version.  For
+purposes of this definition, "control" includes the right to grant
+patent sublicenses in a manner consistent with the requirements of
+this License.
+
+  Each contributor grants you a non-exclusive, worldwide, royalty-free
+patent license under the contributor's essential patent claims, to
+make, use, sell, offer for sale, import and otherwise run, modify and
+propagate the contents of its contributor version.
+
+  In the following three paragraphs, a "patent license" is any express
+agreement or commitment, however denominated, not to enforce a patent
+(such as an express permission to practice a patent or covenant not to
+sue for patent infringement).  To "grant" such a patent license to a
+party means to make such an agreement or commitment not to enforce a
+patent against the party.
+
+  If you convey a covered work, knowingly relying on a patent license,
+and the Corresponding Source of the work is not available for anyone
+to copy, free of charge and under the terms of this License, through a
+publicly available network server or other readily accessible means,
+then you must either (1) cause the Corresponding Source to be so
+available, or (2) arrange to deprive yourself of the benefit of the
+patent license for this particular work, or (3) arrange, in a manner
+consistent with the requirements of this License, to extend the patent
+license to downstream recipients.  "Knowingly relying" means you have
+actual knowledge that, but for the patent license, your conveying the
+covered work in a country, or your recipient's use of the covered work
+in a country, would infringe one or more identifiable patents in that
+country that you have reason to believe are valid.
+
+  If, pursuant to or in connection with a single transaction or
+arrangement, you convey, or propagate by procuring conveyance of, a
+covered work, and grant a patent license to some of the parties
+receiving the covered work authorizing them to use, propagate, modify
+or convey a specific copy of the covered work, then the patent license
+you grant is automatically extended to all recipients of the covered
+work and works based on it.
+
+  A patent license is "discriminatory" if it does not include within
+the scope of its coverage, prohibits the exercise of, or is
+conditioned on the non-exercise of one or more of the rights that are
+specifically granted under this License.  You may not convey a covered
+work if you are a party to an arrangement with a third party that is
+in the business of distributing software, under which you make payment
+to the third party based on the extent of your activity of conveying
+the work, and under which the third party grants, to any of the
+parties who would receive the covered work from you, a discriminatory
+patent license (a) in connection with copies of the covered work
+conveyed by you (or copies made from those copies), or (b) primarily
+for and in connection with specific products or compilations that
+contain the covered work, unless you entered into that arrangement,
+or that patent license was granted, prior to 28 March 2007.
+
+  Nothing in this License shall be construed as excluding or limiting
+any implied license or other defenses to infringement that may
+otherwise be available to you under applicable patent law.
+
+  12. No Surrender of Others' Freedom.
+
+  If conditions are imposed on you (whether by court order, agreement or
+otherwise) that contradict the conditions of this License, they do not
+excuse you from the conditions of this License.  If you cannot convey a
+covered work so as to satisfy simultaneously your obligations under this
+License and any other pertinent obligations, then as a consequence you may
+not convey it at all.  For example, if you agree to terms that obligate you
+to collect a royalty for further conveying from those to whom you convey
+the Program, the only way you could satisfy both those terms and this
+License would be to refrain entirely from conveying the Program.
+
+  13. Use with the GNU Affero General Public License.
+
+  Notwithstanding any other provision of this License, you have
+permission to link or combine any covered work with a work licensed
+under version 3 of the GNU Affero General Public License into a single
+combined work, and to convey the resulting work.  The terms of this
+License will continue to apply to the part which is the covered work,
+but the special requirements of the GNU Affero General Public License,
+section 13, concerning interaction through a network will apply to the
+combination as such.
+
+  14. Revised Versions of this License.
+
+  The Free Software Foundation may publish revised and/or new versions of
+the GNU General Public License from time to time.  Such new versions will
+be similar in spirit to the present version, but may differ in detail to
+address new problems or concerns.
+
+  Each version is given a distinguishing version number.  If the
+Program specifies that a certain numbered version of the GNU General
+Public License "or any later version" applies to it, you have the
+option of following the terms and conditions either of that numbered
+version or of any later version published by the Free Software
+Foundation.  If the Program does not specify a version number of the
+GNU General Public License, you may choose any version ever published
+by the Free Software Foundation.
+
+  If the Program specifies that a proxy can decide which future
+versions of the GNU General Public License can be used, that proxy's
+public statement of acceptance of a version permanently authorizes you
+to choose that version for the Program.
+
+  Later license versions may give you additional or different
+permissions.  However, no additional obligations are imposed on any
+author or copyright holder as a result of your choosing to follow a
+later version.
+
+  15. Disclaimer of Warranty.
+
+  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
+IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
+ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+  16. Limitation of Liability.
+
+  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
+THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
+DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
+PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
+
+  17. Interpretation of Sections 15 and 16.
+
+  If the disclaimer of warranty and limitation of liability provided
+above cannot be given local legal effect according to their terms,
+reviewing courts shall apply local law that most closely approximates
+an absolute waiver of all civil liability in connection with the
+Program, unless a warranty or assumption of liability accompanies a
+copy of the Program in return for a fee.
+
+                     END OF TERMS AND CONDITIONS
+
+            How to Apply These Terms to Your New Programs
+
+  If you develop a new program, and you want it to be of the greatest
+possible use to the public, the best way to achieve this is to make it
+free software which everyone can redistribute and change under these terms.
+
+  To do so, attach the following notices to the program.  It is safest
+to attach them to the start of each source file to most effectively
+state the exclusion of warranty; and each file should have at least
+the "copyright" line and a pointer to where the full notice is found.
+
+    &lt;one line to give the program's name and a brief idea of what it does.&gt;
+    Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+Also add information on how to contact you by electronic and paper mail.
+
+  If the program does terminal interaction, make it output a short
+notice like this when it starts in an interactive mode:
+
+    &lt;program&gt;  Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; type `show c' for details.
+
+The hypothetical commands `show w' and `show c' should show the appropriate
+parts of the General Public License.  Of course, your program's commands
+might be different; for a GUI interface, you would use an "about box".
+
+  You should also get your employer (if you work as a programmer) or school,
+if any, to sign a "copyright disclaimer" for the program, if necessary.
+For more information on this, and how to apply and follow the GNU GPL, see
+&lt;https://www.gnu.org/licenses/&gt;.
+
+  The GNU General Public License does not permit incorporating your program
+into proprietary programs.  If your program is a subroutine library, you
+may consider it more useful to permit linking proprietary applications with
+the library.  If this is what you want to do, use the GNU Lesser General
+Public License instead of this License.  But first, please read
+&lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.
+</desc>
+		 <link href="https://www.goandrace.com">
+		 <text>Garmin Connect</text>
+		 </link>
+	 
+	 </metadata>
+	 <trk>
+		 <name>Marathon de Paris 2026 - 42.195 km</name>
+		 <trkseg>
+			 <trkpt lat="48.86929" lon="2.3094">
+				 <ele>37.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.86587" lon="2.32007">
+				 <ele>37.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.86595" lon="2.32043">
+				 <ele>38.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.86635" lon="2.32136">
+				 <ele>39.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.86643" lon="2.32197">
+				 <ele>39.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.86633" lon="2.32299">
+				 <ele>40.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86642" lon="2.32357">
+				 <ele>40.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86637" lon="2.32399">
+				 <ele>42.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.86541" lon="2.32701">
+				 <ele>44</ele>
+			 </trkpt>
+			 <trkpt lat="48.86534" lon="2.32727">
+				 <ele>45.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.87024" lon="2.33217">
+				 <ele>45.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.870674" lon="2.33199">
+				 <ele>46.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.871073" lon="2.331824">
+				 <ele>46.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.871371" lon="2.331313">
+				 <ele>46.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.87167" lon="2.330802">
+				 <ele>46.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.871774" lon="2.330624">
+				 <ele>47.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.872203" lon="2.330827">
+				 <ele>47.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.872633" lon="2.331031">
+				 <ele>48.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.872809" lon="2.331114">
+				 <ele>48.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.872948" lon="2.33157">
+				 <ele>48</ele>
+			 </trkpt>
+			 <trkpt lat="48.872637" lon="2.332063">
+				 <ele>48.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.872325" lon="2.332557">
+				 <ele>48</ele>
+			 </trkpt>
+			 <trkpt lat="48.872209" lon="2.332742">
+				 <ele>47.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.871772" lon="2.332582">
+				 <ele>48.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.871334" lon="2.332423">
+				 <ele>49.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.871173" lon="2.332364">
+				 <ele>49.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.870738" lon="2.332537">
+				 <ele>48.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.870303" lon="2.332709">
+				 <ele>47.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.870074" lon="2.332614">
+				 <ele>46.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.86971" lon="2.33275">
+				 <ele>46.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86306" lon="2.33546">
+				 <ele>46</ele>
+			 </trkpt>
+			 <trkpt lat="48.86177" lon="2.33427">
+				 <ele>45.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.8602" lon="2.33328">
+				 <ele>45.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85939" lon="2.33678">
+				 <ele>45.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85909" lon="2.33976">
+				 <ele>44.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.86087" lon="2.34092">
+				 <ele>44.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85757" lon="2.35123">
+				 <ele>44.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85507" lon="2.36164">
+				 <ele>45.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.854" lon="2.36468">
+				 <ele>44.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85362" lon="2.3662">
+				 <ele>45.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.85337" lon="2.36767">
+				 <ele>44.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.8533" lon="2.36834">
+				 <ele>44.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85334" lon="2.36855">
+				 <ele>44.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.8535" lon="2.36877">
+				 <ele>43.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85357" lon="2.3692">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.853541" lon="2.369308">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.853526" lon="2.369397">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.853472" lon="2.369556">
+				 <ele>42.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.853416" lon="2.369632">
+				 <ele>42.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.853365" lon="2.369681">
+				 <ele>42.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.853297" lon="2.369718">
+				 <ele>42.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.853296" lon="2.370061">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.853296" lon="2.370116">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.853292" lon="2.370223">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.853277" lon="2.370286">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.853254" lon="2.370344">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.853208" lon="2.370462">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.852963" lon="2.370852">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.852733" lon="2.371263">
+				 <ele>42.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.852707" lon="2.371317">
+				 <ele>42.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.852474" lon="2.371802">
+				 <ele>42.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.852417" lon="2.371965">
+				 <ele>42.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.852399" lon="2.37202">
+				 <ele>42.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.852383" lon="2.372082">
+				 <ele>42.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.8523" lon="2.372363">
+				 <ele>42.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.852232" lon="2.372606">
+				 <ele>42.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.852146" lon="2.372903">
+				 <ele>42.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.852119" lon="2.372997">
+				 <ele>42.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85193" lon="2.373653">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.851889" lon="2.373812">
+				 <ele>43.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.851857" lon="2.37393">
+				 <ele>43.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.851642" lon="2.374774">
+				 <ele>43.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.851622" lon="2.374857">
+				 <ele>44.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.851594" lon="2.37497">
+				 <ele>44.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.851564" lon="2.375087">
+				 <ele>44.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.851517" lon="2.375274">
+				 <ele>45.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.851401" lon="2.37574">
+				 <ele>45.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.851357" lon="2.375919">
+				 <ele>45.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.851307" lon="2.376144">
+				 <ele>45.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85124" lon="2.376415">
+				 <ele>45.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.851155" lon="2.376764">
+				 <ele>44.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.851141" lon="2.376819">
+				 <ele>44.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.851045" lon="2.37722">
+				 <ele>44.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.851005" lon="2.377396">
+				 <ele>43.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.850941" lon="2.37765">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85093" lon="2.377698">
+				 <ele>43</ele>
+			 </trkpt>
+			 <trkpt lat="48.850907" lon="2.377795">
+				 <ele>42.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.850757" lon="2.378404">
+				 <ele>41.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.850724" lon="2.378518">
+				 <ele>41.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.850662" lon="2.378814">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850641" lon="2.378949">
+				 <ele>41.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.850576" lon="2.379405">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850554" lon="2.37952">
+				 <ele>41.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.850538" lon="2.379613">
+				 <ele>41.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.850498" lon="2.379941">
+				 <ele>42</ele>
+			 </trkpt>
+			 <trkpt lat="48.850483" lon="2.380066">
+				 <ele>42.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.850478" lon="2.380126">
+				 <ele>42.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850464" lon="2.380307">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.850419" lon="2.381249">
+				 <ele>43.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850406" lon="2.381409">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.850393" lon="2.381532">
+				 <ele>43.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.850377" lon="2.38179">
+				 <ele>42.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.850366" lon="2.381913">
+				 <ele>42.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850361" lon="2.381957">
+				 <ele>41.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.850313" lon="2.382413">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850279" lon="2.382821">
+				 <ele>41.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.850273" lon="2.382896">
+				 <ele>41</ele>
+			 </trkpt>
+			 <trkpt lat="48.850266" lon="2.382993">
+				 <ele>41</ele>
+			 </trkpt>
+			 <trkpt lat="48.850262" lon="2.383038">
+				 <ele>41</ele>
+			 </trkpt>
+			 <trkpt lat="48.850169" lon="2.384174">
+				 <ele>41</ele>
+			 </trkpt>
+			 <trkpt lat="48.85014" lon="2.384364">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.850123" lon="2.384451">
+				 <ele>42.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.850084" lon="2.384689">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.850036" lon="2.384955">
+				 <ele>43.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.849939" lon="2.385589">
+				 <ele>44.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.849676" lon="2.387328">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.849646" lon="2.387526">
+				 <ele>46</ele>
+			 </trkpt>
+			 <trkpt lat="48.849497" lon="2.388511">
+				 <ele>46.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.849359" lon="2.389417">
+				 <ele>47</ele>
+			 </trkpt>
+			 <trkpt lat="48.849348" lon="2.389491">
+				 <ele>47.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.849259" lon="2.390086">
+				 <ele>47.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.849242" lon="2.390193">
+				 <ele>48.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.849227" lon="2.390291">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.849006" lon="2.391747">
+				 <ele>50.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.848967" lon="2.392008">
+				 <ele>51</ele>
+			 </trkpt>
+			 <trkpt lat="48.848574" lon="2.392368">
+				 <ele>52</ele>
+			 </trkpt>
+			 <trkpt lat="48.848188" lon="2.392717">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.847801" lon="2.393066">
+				 <ele>53.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.847414" lon="2.393415">
+				 <ele>54.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.847028" lon="2.393764">
+				 <ele>54.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.846917" lon="2.393864">
+				 <ele>55.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.846529" lon="2.394208">
+				 <ele>55.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84614" lon="2.394551">
+				 <ele>55.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.845751" lon="2.394895">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.845363" lon="2.395238">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.844974" lon="2.395582">
+				 <ele>55.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.844564" lon="2.39593">
+				 <ele>54.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.844172" lon="2.396263">
+				 <ele>54.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.843779" lon="2.396596">
+				 <ele>54.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.843386" lon="2.396929">
+				 <ele>54.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.843004" lon="2.397253">
+				 <ele>54.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.842613" lon="2.397591">
+				 <ele>55</ele>
+			 </trkpt>
+			 <trkpt lat="48.842222" lon="2.397929">
+				 <ele>55.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.841831" lon="2.398267">
+				 <ele>55.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84144" lon="2.398604">
+				 <ele>56.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.841049" lon="2.398942">
+				 <ele>57.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.840658" lon="2.39928">
+				 <ele>57.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.840267" lon="2.399618">
+				 <ele>57.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.839836" lon="2.399911">
+				 <ele>58.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.839801" lon="2.399934">
+				 <ele>58.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.839672" lon="2.399706">
+				 <ele>58.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.839625" lon="2.399027">
+				 <ele>58.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.83959" lon="2.398508">
+				 <ele>58.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.839578" lon="2.397825">
+				 <ele>58.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.839566" lon="2.397142">
+				 <ele>58.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.839559" lon="2.396734">
+				 <ele>58.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.839444" lon="2.396658">
+				 <ele>58.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.839278" lon="2.3966">
+				 <ele>58.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.839243" lon="2.396606">
+				 <ele>58.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.839213" lon="2.396617">
+				 <ele>58.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.839187" lon="2.396658">
+				 <ele>58</ele>
+			 </trkpt>
+			 <trkpt lat="48.83917" lon="2.396704">
+				 <ele>57.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.838949" lon="2.397311">
+				 <ele>57</ele>
+			 </trkpt>
+			 <trkpt lat="48.838732" lon="2.397909">
+				 <ele>56.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.838514" lon="2.398508">
+				 <ele>55.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.838311" lon="2.399067">
+				 <ele>54</ele>
+			 </trkpt>
+			 <trkpt lat="48.838091" lon="2.399662">
+				 <ele>52.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.83787" lon="2.400257">
+				 <ele>51.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.837649" lon="2.400853">
+				 <ele>50.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.837429" lon="2.401448">
+				 <ele>48.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.837208" lon="2.402043">
+				 <ele>47.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.836987" lon="2.402638">
+				 <ele>46.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.836767" lon="2.403234">
+				 <ele>45</ele>
+			 </trkpt>
+			 <trkpt lat="48.836546" lon="2.403829">
+				 <ele>44.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.836325" lon="2.404424">
+				 <ele>44.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.836105" lon="2.40502">
+				 <ele>44.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.835884" lon="2.405615">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.835837" lon="2.405742">
+				 <ele>46.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.835547" lon="2.406264">
+				 <ele>46.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.835287" lon="2.406732">
+				 <ele>47.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.835069" lon="2.40733">
+				 <ele>47.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.834895" lon="2.407809">
+				 <ele>48.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.834846" lon="2.408412">
+				 <ele>48.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.834622" lon="2.409005">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.834399" lon="2.409598">
+				 <ele>49.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.834175" lon="2.41019">
+				 <ele>50</ele>
+			 </trkpt>
+			 <trkpt lat="48.834102" lon="2.410385">
+				 <ele>50</ele>
+			 </trkpt>
+			 <trkpt lat="48.833965" lon="2.411036">
+				 <ele>49.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.83394" lon="2.411153">
+				 <ele>50.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.833913" lon="2.411319">
+				 <ele>50.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.833908" lon="2.411371">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.833912" lon="2.411548">
+				 <ele>51.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.833804" lon="2.412347">
+				 <ele>51.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.833781" lon="2.412616">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.833753" lon="2.412976">
+				 <ele>52.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.833715" lon="2.413515">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.83371" lon="2.413718">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.833706" lon="2.413912">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.833711" lon="2.414311">
+				 <ele>53</ele>
+			 </trkpt>
+			 <trkpt lat="48.833741" lon="2.414923">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.833754" lon="2.415085">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.833833" lon="2.415766">
+				 <ele>52.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.833907" lon="2.416215">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.833996" lon="2.416638">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.834147" lon="2.417184">
+				 <ele>52.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.834185" lon="2.417317">
+				 <ele>52.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.834318" lon="2.41776">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.834397" lon="2.418018">
+				 <ele>52.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.834618" lon="2.418704">
+				 <ele>52.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.834908" lon="2.419559">
+				 <ele>53</ele>
+			 </trkpt>
+			 <trkpt lat="48.834922" lon="2.419602">
+				 <ele>53.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.834979" lon="2.41978">
+				 <ele>53.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.835028" lon="2.419923">
+				 <ele>54</ele>
+			 </trkpt>
+			 <trkpt lat="48.835057" lon="2.420009">
+				 <ele>54.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.835086" lon="2.420095">
+				 <ele>54</ele>
+			 </trkpt>
+			 <trkpt lat="48.835334" lon="2.420826">
+				 <ele>53.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.83575" lon="2.421993">
+				 <ele>53.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.835793" lon="2.422112">
+				 <ele>53.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.836156" lon="2.422967">
+				 <ele>53.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.836216" lon="2.423083">
+				 <ele>53.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.836709" lon="2.424041">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.837112" lon="2.424728">
+				 <ele>51.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.837536" lon="2.425348">
+				 <ele>50.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.837743" lon="2.425684">
+				 <ele>50</ele>
+			 </trkpt>
+			 <trkpt lat="48.837986" lon="2.426077">
+				 <ele>49.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.838262" lon="2.42665">
+				 <ele>49.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.838509" lon="2.427222">
+				 <ele>48.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.838859" lon="2.428158">
+				 <ele>48.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.839148" lon="2.429109">
+				 <ele>47.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.839321" lon="2.429747">
+				 <ele>47.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.839339" lon="2.429809">
+				 <ele>47</ele>
+			 </trkpt>
+			 <trkpt lat="48.839383" lon="2.429981">
+				 <ele>47</ele>
+			 </trkpt>
+			 <trkpt lat="48.839418" lon="2.430118">
+				 <ele>47.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.839433" lon="2.430178">
+				 <ele>47.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.839527" lon="2.430536">
+				 <ele>48.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.839953" lon="2.432162">
+				 <ele>48.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.84" lon="2.432334">
+				 <ele>49</ele>
+			 </trkpt>
+			 <trkpt lat="48.840456" lon="2.434054">
+				 <ele>49.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.840466" lon="2.434092">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.840475" lon="2.434134">
+				 <ele>50.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.840515" lon="2.434292">
+				 <ele>50.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.840578" lon="2.434522">
+				 <ele>50.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.840628" lon="2.43469">
+				 <ele>50.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.840685" lon="2.434754">
+				 <ele>50.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.840684" lon="2.434903">
+				 <ele>50.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.840656" lon="2.435048">
+				 <ele>50.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.840604" lon="2.435171">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.840516" lon="2.435347">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.840491" lon="2.435428">
+				 <ele>49.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.840469" lon="2.435552">
+				 <ele>49.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.840468" lon="2.435662">
+				 <ele>49</ele>
+			 </trkpt>
+			 <trkpt lat="48.840476" lon="2.435756">
+				 <ele>49</ele>
+			 </trkpt>
+			 <trkpt lat="48.840507" lon="2.43596">
+				 <ele>49</ele>
+			 </trkpt>
+			 <trkpt lat="48.840522" lon="2.43615">
+				 <ele>49.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.840406" lon="2.436275">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.840383" lon="2.436313">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.840094" lon="2.436694">
+				 <ele>50</ele>
+			 </trkpt>
+			 <trkpt lat="48.840028" lon="2.436788">
+				 <ele>50</ele>
+			 </trkpt>
+			 <trkpt lat="48.839787" lon="2.437116">
+				 <ele>49.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.839366" lon="2.437693">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.839304" lon="2.437778">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.839255" lon="2.437852">
+				 <ele>49.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.837681" lon="2.440035">
+				 <ele>49.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.837079" lon="2.440866">
+				 <ele>48.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.836913" lon="2.441097">
+				 <ele>48.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.836818" lon="2.441236">
+				 <ele>48.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.836664" lon="2.441445">
+				 <ele>48</ele>
+			 </trkpt>
+			 <trkpt lat="48.836532" lon="2.441631">
+				 <ele>47.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.835795" lon="2.442628">
+				 <ele>48.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.83525" lon="2.44334">
+				 <ele>48.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.834342" lon="2.444485">
+				 <ele>48.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.834162" lon="2.444699">
+				 <ele>49.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.834111" lon="2.444766">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.833925" lon="2.445007">
+				 <ele>49.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.833882" lon="2.445011">
+				 <ele>50.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.833835" lon="2.44504">
+				 <ele>50.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.833801" lon="2.445096">
+				 <ele>50.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.833785" lon="2.445168">
+				 <ele>51.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.833787" lon="2.445234">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.833701" lon="2.445291">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.833581" lon="2.445463">
+				 <ele>53.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.832434" lon="2.447314">
+				 <ele>53.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.831043" lon="2.449176">
+				 <ele>54</ele>
+			 </trkpt>
+			 <trkpt lat="48.829448" lon="2.451227">
+				 <ele>54.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.829044" lon="2.451798">
+				 <ele>54.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.828565" lon="2.452471">
+				 <ele>54.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.827266" lon="2.454186">
+				 <ele>55</ele>
+			 </trkpt>
+			 <trkpt lat="48.827158" lon="2.454342">
+				 <ele>55.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.827137" lon="2.454306">
+				 <ele>54.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.827111" lon="2.454278">
+				 <ele>54.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.827058" lon="2.454248">
+				 <ele>54.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.827005" lon="2.454254">
+				 <ele>53.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.826965" lon="2.454279">
+				 <ele>53.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.82693" lon="2.454324">
+				 <ele>53.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.826908" lon="2.454378">
+				 <ele>53.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.826896" lon="2.454462">
+				 <ele>53.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.826902" lon="2.454528">
+				 <ele>53.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.826932" lon="2.454606">
+				 <ele>53.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.826823" lon="2.454728">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.825512" lon="2.456211">
+				 <ele>52.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.824992" lon="2.456765">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824459" lon="2.457298">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824073" lon="2.457637">
+				 <ele>52.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824039" lon="2.457667">
+				 <ele>52</ele>
+			 </trkpt>
+			 <trkpt lat="48.823945" lon="2.457748">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.823927" lon="2.457717">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.823883" lon="2.457687">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.823848" lon="2.457689">
+				 <ele>53.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.823815" lon="2.457712">
+				 <ele>53.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.823752" lon="2.45759">
+				 <ele>54.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.823519" lon="2.457196">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.823081" lon="2.456359">
+				 <ele>56.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.822444" lon="2.455052">
+				 <ele>57.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.822048" lon="2.454222">
+				 <ele>59.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.821829" lon="2.453847">
+				 <ele>60.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.821738" lon="2.453713">
+				 <ele>62.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.82148" lon="2.453329">
+				 <ele>63.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.82124" lon="2.452907">
+				 <ele>64.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.821188" lon="2.452807">
+				 <ele>65.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.820992" lon="2.452372">
+				 <ele>65.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.820865" lon="2.452074">
+				 <ele>66.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820848" lon="2.452033">
+				 <ele>67.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.820724" lon="2.451738">
+				 <ele>67.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.820592" lon="2.451416">
+				 <ele>67.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.820464" lon="2.451064">
+				 <ele>67.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.820328" lon="2.450602">
+				 <ele>67.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.820294" lon="2.450417">
+				 <ele>67.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820261" lon="2.450208">
+				 <ele>67.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820237" lon="2.450053">
+				 <ele>67.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820214" lon="2.449809">
+				 <ele>67.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820214" lon="2.449403">
+				 <ele>67.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.820229" lon="2.449063">
+				 <ele>68.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.820252" lon="2.448711">
+				 <ele>68.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.820348" lon="2.447536">
+				 <ele>68.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.820428" lon="2.446728">
+				 <ele>69.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.820593" lon="2.445476">
+				 <ele>69.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.820607" lon="2.445373">
+				 <ele>69.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.82053" lon="2.445294">
+				 <ele>69.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.82047" lon="2.445252">
+				 <ele>69.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.820303" lon="2.445104">
+				 <ele>69.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.820034" lon="2.444883">
+				 <ele>69.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.820002" lon="2.444857">
+				 <ele>68.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.819681" lon="2.444559">
+				 <ele>67.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.819236" lon="2.444053">
+				 <ele>66</ele>
+			 </trkpt>
+			 <trkpt lat="48.818988" lon="2.443687">
+				 <ele>64.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.818877" lon="2.443474">
+				 <ele>63.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.818753" lon="2.44318">
+				 <ele>62.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.818731" lon="2.443132">
+				 <ele>61.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.818623" lon="2.442887">
+				 <ele>60.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.818648" lon="2.442283">
+				 <ele>60.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.81865" lon="2.44224">
+				 <ele>59.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.818745" lon="2.441139">
+				 <ele>60.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.818883" lon="2.440064">
+				 <ele>60.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.818946" lon="2.439647">
+				 <ele>60.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.819169" lon="2.438459">
+				 <ele>61.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.81931" lon="2.437857">
+				 <ele>62.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.819467" lon="2.437273">
+				 <ele>62.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.8195" lon="2.437159">
+				 <ele>63.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.819699" lon="2.43655">
+				 <ele>63.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.819765" lon="2.436356">
+				 <ele>64.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.819818" lon="2.4362">
+				 <ele>65.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.819875" lon="2.436052">
+				 <ele>65.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.819993" lon="2.43576">
+				 <ele>65.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.820111" lon="2.43547">
+				 <ele>65.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.820201" lon="2.435271">
+				 <ele>65.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.820373" lon="2.434901">
+				 <ele>65.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.820724" lon="2.434313">
+				 <ele>65.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.82108" lon="2.433793">
+				 <ele>65.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.821369" lon="2.433441">
+				 <ele>65.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.821859" lon="2.432871">
+				 <ele>65.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.82197" lon="2.432739">
+				 <ele>65.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.822113" lon="2.432546">
+				 <ele>65.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.822355" lon="2.432176">
+				 <ele>64.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.822792" lon="2.431434">
+				 <ele>64.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.822888" lon="2.431245">
+				 <ele>64.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.823156" lon="2.43062">
+				 <ele>64.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.823254" lon="2.430365">
+				 <ele>63.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.823288" lon="2.430259">
+				 <ele>63.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.823406" lon="2.429918">
+				 <ele>62.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.823479" lon="2.429699">
+				 <ele>61.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.82363" lon="2.429169">
+				 <ele>60.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.823788" lon="2.428521">
+				 <ele>60.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.823929" lon="2.427794">
+				 <ele>59.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824025" lon="2.427137">
+				 <ele>59</ele>
+			 </trkpt>
+			 <trkpt lat="48.824104" lon="2.426438">
+				 <ele>58.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824172" lon="2.425542">
+				 <ele>57.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.824188" lon="2.424646">
+				 <ele>57.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824166" lon="2.423778">
+				 <ele>56.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.824155" lon="2.42347">
+				 <ele>56.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.824136" lon="2.423071">
+				 <ele>56</ele>
+			 </trkpt>
+			 <trkpt lat="48.824126" lon="2.422884">
+				 <ele>56</ele>
+			 </trkpt>
+			 <trkpt lat="48.824108" lon="2.422508">
+				 <ele>56.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824069" lon="2.421822">
+				 <ele>56.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824066" lon="2.421738">
+				 <ele>56.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824049" lon="2.421257">
+				 <ele>56.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.824045" lon="2.420897">
+				 <ele>56.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824061" lon="2.420241">
+				 <ele>56</ele>
+			 </trkpt>
+			 <trkpt lat="48.824062" lon="2.420196">
+				 <ele>55.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.824081" lon="2.419957">
+				 <ele>55.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.824095" lon="2.419798">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824101" lon="2.419754">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824181" lon="2.419187">
+				 <ele>55.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.824234" lon="2.418918">
+				 <ele>54.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.824301" lon="2.418637">
+				 <ele>54.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.824453" lon="2.418056">
+				 <ele>53.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.8245" lon="2.417858">
+				 <ele>53.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824545" lon="2.417663">
+				 <ele>53.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824638" lon="2.417169">
+				 <ele>52.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.824677" lon="2.416933">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824721" lon="2.416606">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.824751" lon="2.416295">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.824773" lon="2.415967">
+				 <ele>51.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824784" lon="2.415273">
+				 <ele>51.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.824784" lon="2.415167">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824782" lon="2.415072">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824776" lon="2.414959">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824722" lon="2.413881">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.824715" lon="2.413186">
+				 <ele>51</ele>
+			 </trkpt>
+			 <trkpt lat="48.824725" lon="2.412821">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.824731" lon="2.412628">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.824741" lon="2.41242">
+				 <ele>51.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824809" lon="2.411737">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.824832" lon="2.411522">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.824924" lon="2.411027">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.824964" lon="2.410809">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.825044" lon="2.410422">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.82523" lon="2.40981">
+				 <ele>52.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.8254" lon="2.40939">
+				 <ele>53</ele>
+			 </trkpt>
+			 <trkpt lat="48.82567" lon="2.40884">
+				 <ele>53.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.82594" lon="2.40835">
+				 <ele>52.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.82681" lon="2.40702">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.82777" lon="2.40585">
+				 <ele>51.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.8283" lon="2.40512">
+				 <ele>50.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.82922" lon="2.40351">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.82969" lon="2.40171">
+				 <ele>49.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.8298" lon="2.40097">
+				 <ele>49</ele>
+			 </trkpt>
+			 <trkpt lat="48.83401" lon="2.39424">
+				 <ele>48.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.83526" lon="2.39276">
+				 <ele>47.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.83714" lon="2.39136">
+				 <ele>46</ele>
+			 </trkpt>
+			 <trkpt lat="48.83909" lon="2.38918">
+				 <ele>44.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.84161" lon="2.38692">
+				 <ele>44.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84176" lon="2.38684">
+				 <ele>44.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84194" lon="2.38655">
+				 <ele>44.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.84898" lon="2.37182">
+				 <ele>44</ele>
+			 </trkpt>
+			 <trkpt lat="48.84964" lon="2.37077">
+				 <ele>44</ele>
+			 </trkpt>
+			 <trkpt lat="48.85249" lon="2.36942">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85277" lon="2.36947">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85329" lon="2.36966">
+				 <ele>43.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85345" lon="2.36952">
+				 <ele>43.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85354" lon="2.36921">
+				 <ele>43.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85346" lon="2.3688">
+				 <ele>44.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85319" lon="2.36861">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85292" lon="2.36836">
+				 <ele>43.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85264" lon="2.36735">
+				 <ele>43.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85237" lon="2.36724">
+				 <ele>43</ele>
+			 </trkpt>
+			 <trkpt lat="48.85158" lon="2.36684">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85044" lon="2.36596">
+				 <ele>42.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.84974" lon="2.36508">
+				 <ele>41.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.84974" lon="2.36448">
+				 <ele>40.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.85158" lon="2.36209">
+				 <ele>40.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85225" lon="2.36074">
+				 <ele>39.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85265" lon="2.35972">
+				 <ele>38.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85252" lon="2.36006">
+				 <ele>37.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85286" lon="2.35913">
+				 <ele>36</ele>
+			 </trkpt>
+			 <trkpt lat="48.85286" lon="2.35865">
+				 <ele>34.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85394" lon="2.35523">
+				 <ele>33.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.8541" lon="2.35481">
+				 <ele>32.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85517" lon="2.35246">
+				 <ele>32.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85526" lon="2.35209">
+				 <ele>32.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85551" lon="2.35146">
+				 <ele>32.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.8557" lon="2.35119">
+				 <ele>33.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85577" lon="2.35102">
+				 <ele>36.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85619" lon="2.34974">
+				 <ele>37.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85648" lon="2.34901">
+				 <ele>39.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.85727" lon="2.34623">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.85743" lon="2.34547">
+				 <ele>43.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85828" lon="2.34251">
+				 <ele>44.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.85867" lon="2.34047">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85873" lon="2.34029">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85867" lon="2.34046">
+				 <ele>44.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85876" lon="2.34017">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85951" lon="2.33583">
+				 <ele>45.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.8606" lon="2.33138">
+				 <ele>43.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.86483" lon="2.31835">
+				 <ele>41.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.8648" lon="2.31271">
+				 <ele>41.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.86466" lon="2.30658">
+				 <ele>40.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86461" lon="2.30622">
+				 <ele>38.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.86456" lon="2.30381">
+				 <ele>38.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86453" lon="2.30343">
+				 <ele>38.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.86395" lon="2.29949">
+				 <ele>38.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86388" lon="2.2991">
+				 <ele>38.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.86331" lon="2.2965">
+				 <ele>37.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86265" lon="2.29436">
+				 <ele>37.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.86245" lon="2.29389">
+				 <ele>37.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.86228" lon="2.29355">
+				 <ele>38.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85836" lon="2.28869">
+				 <ele>36.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.85802" lon="2.28825">
+				 <ele>35.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85783" lon="2.28791">
+				 <ele>35.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85732" lon="2.28722">
+				 <ele>35.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85556" lon="2.28496">
+				 <ele>36.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85377" lon="2.2827">
+				 <ele>36.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.85243" lon="2.28037">
+				 <ele>37.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.8514" lon="2.27865">
+				 <ele>38.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.85132" lon="2.27846">
+				 <ele>39.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85027" lon="2.27669">
+				 <ele>39.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85007" lon="2.27641">
+				 <ele>39.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.84294" lon="2.2692">
+				 <ele>41.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84276" lon="2.26896">
+				 <ele>43.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.84086" lon="2.2653">
+				 <ele>44.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.84098" lon="2.26498">
+				 <ele>45.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84089" lon="2.26523">
+				 <ele>46.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.84257" lon="2.2612">
+				 <ele>45.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.84329" lon="2.2597">
+				 <ele>44.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84434" lon="2.25874">
+				 <ele>44.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.84527" lon="2.25844">
+				 <ele>43.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.84534" lon="2.25823">
+				 <ele>43.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.84561" lon="2.25059">
+				 <ele>42.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.84764" lon="2.24255">
+				 <ele>41.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.84774" lon="2.24235">
+				 <ele>40.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.8479" lon="2.24243">
+				 <ele>39.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.84803" lon="2.24269">
+				 <ele>39.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.84823" lon="2.2428">
+				 <ele>39.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.84843" lon="2.24265">
+				 <ele>40.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.84846" lon="2.24232">
+				 <ele>41.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.8486" lon="2.24215">
+				 <ele>42.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.84877" lon="2.24207">
+				 <ele>44.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85345" lon="2.24151">
+				 <ele>45.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85844" lon="2.24477">
+				 <ele>46.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85855" lon="2.2449">
+				 <ele>47.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.858518" lon="2.245041">
+				 <ele>48.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.858343" lon="2.245655">
+				 <ele>49.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.858197" lon="2.246298">
+				 <ele>50.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.858088" lon="2.24687">
+				 <ele>51</ele>
+			 </trkpt>
+			 <trkpt lat="48.858059" lon="2.247015">
+				 <ele>50.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.85794" lon="2.247866">
+				 <ele>50.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.857861" lon="2.248738">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.857834" lon="2.249664">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.85784" lon="2.250213">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.857882" lon="2.251284">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.857935" lon="2.252069">
+				 <ele>51.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.857977" lon="2.252689">
+				 <ele>51.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.857984" lon="2.252773">
+				 <ele>51.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.858082" lon="2.253908">
+				 <ele>51.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.858178" lon="2.254754">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.858204" lon="2.254981">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.858219" lon="2.255114">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.858224" lon="2.255166">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.858274" lon="2.255623">
+				 <ele>52.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85831" lon="2.255978">
+				 <ele>52.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.8584" lon="2.256729">
+				 <ele>52.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.858446" lon="2.257144">
+				 <ele>52.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.858472" lon="2.25743">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.858479" lon="2.257742">
+				 <ele>52.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.858462" lon="2.258161">
+				 <ele>52</ele>
+			 </trkpt>
+			 <trkpt lat="48.858423" lon="2.258735">
+				 <ele>51.8</ele>
+			 </trkpt>
+			 <trkpt lat="48.858422" lon="2.258784">
+				 <ele>51.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.858418" lon="2.258932">
+				 <ele>51.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.858422" lon="2.259569">
+				 <ele>51.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.858417" lon="2.260145">
+				 <ele>51</ele>
+			 </trkpt>
+			 <trkpt lat="48.858377" lon="2.26074">
+				 <ele>51.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.858362" lon="2.260908">
+				 <ele>51.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.858295" lon="2.261192">
+				 <ele>51.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.858238" lon="2.26139">
+				 <ele>52.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.858108" lon="2.261897">
+				 <ele>52.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.857913" lon="2.262602">
+				 <ele>52.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.857865" lon="2.262778">
+				 <ele>52.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.857848" lon="2.262838">
+				 <ele>53.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.857828" lon="2.262909">
+				 <ele>53.6</ele>
+			 </trkpt>
+			 <trkpt lat="48.857802" lon="2.263">
+				 <ele>54</ele>
+			 </trkpt>
+			 <trkpt lat="48.857786" lon="2.263054">
+				 <ele>54.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.857679" lon="2.263426">
+				 <ele>54.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.857669" lon="2.263539">
+				 <ele>55</ele>
+			 </trkpt>
+			 <trkpt lat="48.85764" lon="2.263642">
+				 <ele>55.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.857405" lon="2.264482">
+				 <ele>56.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.857354" lon="2.264662">
+				 <ele>56.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.857311" lon="2.264819">
+				 <ele>57.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.857117" lon="2.265518">
+				 <ele>58</ele>
+			 </trkpt>
+			 <trkpt lat="48.857043" lon="2.265784">
+				 <ele>58.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.857021" lon="2.265908">
+				 <ele>58.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.856999" lon="2.266079">
+				 <ele>59</ele>
+			 </trkpt>
+			 <trkpt lat="48.856999" lon="2.266367">
+				 <ele>59.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.857014" lon="2.26649">
+				 <ele>61.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.85715" lon="2.26705">
+				 <ele>62.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.85831" lon="2.27022">
+				 <ele>62.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85836" lon="2.27053">
+				 <ele>63.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85829" lon="2.27249">
+				 <ele>64.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85819" lon="2.27426">
+				 <ele>65.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.85824" lon="2.2747">
+				 <ele>65.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.85843" lon="2.2753">
+				 <ele>65.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.85938" lon="2.27779">
+				 <ele>66.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86103" lon="2.28365">
+				 <ele>67.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86215" lon="2.28663">
+				 <ele>68.2</ele>
+			 </trkpt>
+			 <trkpt lat="48.8626" lon="2.28669">
+				 <ele>68.5</ele>
+			 </trkpt>
+			 <trkpt lat="48.86309" lon="2.28662">
+				 <ele>67.3</ele>
+			 </trkpt>
+			 <trkpt lat="48.86348" lon="2.2869">
+				 <ele>65.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.8693" lon="2.28544">
+				 <ele>62.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.86957" lon="2.28515">
+				 <ele>60.7</ele>
+			 </trkpt>
+			 <trkpt lat="48.86984" lon="2.28469">
+				 <ele>59.9</ele>
+			 </trkpt>
+			 <trkpt lat="48.87126" lon="2.27822">
+				 <ele>59.4</ele>
+			 </trkpt>
+			 <trkpt lat="48.87165" lon="2.27654">
+				 <ele>59</ele>
+			 </trkpt>
+			 <trkpt lat="48.87182" lon="2.27665">
+				 <ele>58.1</ele>
+			 </trkpt>
+			 <trkpt lat="48.87211" lon="2.27954">
+				 <ele>56.2</ele>
+			 </trkpt>
+		 </trkseg>
+	 </trk>
+</gpx>

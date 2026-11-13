@@ -1,0 +1,43 @@
+Additional 2026 marathon GPX routes
+==================================
+
+Source project: logie4000/cheersquad
+Revision: 78156f867e210fd6332e110323189f3bcce3cb21
+https://github.com/logie4000/cheersquad/tree/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data
+
+These seven GPX assets are distributed by the source project under the GNU
+General Public License, version 3. The full licence is in GPL-3.0.txt.
+The licence applies to these route assets, not to unrelated application files.
+Source licence:
+https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/LICENSE
+
+Credits: logie4000/cheersquad contributors. Original GPX creator, link,
+description and elevation metadata are retained, including references to
+Garmin Connect and Go&Race where present.
+
+Local route                              Upstream filename
+tokyo/tokyo-2026-marathon/route.gpx        tokyo-2026.gpx
+london/london-2026-marathon/route.gpx      london-2026.gpx
+sydney/sydney-2026-marathon/route.gpx      sydney_2026.gpx
+berlin/berlin-2026-marathon/route.gpx      berlin-2026.gpx
+chicago/chicago-2026-marathon/route.gpx    chicago-2026.gpx
+new-york/new-york-2026-marathon/route.gpx  nyc-2026-blue.gpx
+paris/paris-2026-marathon/route.gpx        paris-2026.gpx
+
+Modified on 2026-11-13: removed all GPX timestamps, added provenance/licence
+comments and appended the full GPL v3 text to each GPX metadata description.
+This keeps a copy of the licence with downloaded GPX files.
+Track coordinates, elevation, point order and segment boundaries
+are unchanged. The GPX files are the editable form of these route assets.
+No application code was copied from the source project.
+
+All routes are unofficial. Edition years are the source's labels, not
+independently verified organizer editions. London and New York use the blue
+start; other start variants are not bundled. Paris is the annual marathon,
+not the Olympic Marathon Pour Tous. The Paris source has point spacing up to
+1.33 km, so fine bends may be missing. Compare all routes with the organizer's
+edition-specific map before printing.
+
+No route has been invented for Bergen, Copenhagen, Stockholm, Cape Town or
+Valencia. Those races still need a suitable GPX with redistribution permission.
+The incomplete London OpenStreetMap relation was not published.

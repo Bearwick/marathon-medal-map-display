@@ -51,7 +51,7 @@
 		"curation": "community",
 		"year": 2026,
 		"distanceKm": 10,
-		"title": "Oslo Maraton 2026 course",
+		"title": "Oslo Maraton 2026 10K course",
 		"sourceUrl": "https://oslomaraton.no/loypa-2/",
 		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/12",
 		"license": "MIT",
@@ -59,6 +59,21 @@
 		"notes": "",
 		"files": {
 			"gpx": "oslo/oslo-2026-10k/route.gpx"
+		}
+	},
+	{
+		"id": "oslo-2026-triple",
+		"raceId": "oslo",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 73.2925,
+		"title": "Oslotrippelen 2026 (marathon + half + 10K)",
+		"sourceUrl": "https://oslomaraton.no/distanser/",
+		"license": "MIT (inherited from the three bundled Oslo component entries)",
+		"attribution": "Bundled Oslo 2026 marathon, half marathon and 10K; original catalogue attribution fields: No / None.",
+		"notes": "Combined from the existing 2026 Oslo courses in the organizer's stated order: marathon, half marathon, then 10K (73.2925 km nominal total). Coordinates and elevation are unchanged. Three separate tracks omit untimed transfers and avoid drawing artificial connections. This is a combined challenge, not a separate continuous course. Select CUSTOM DISTANCE and enter 73.2925 km. Compare the component courses with your edition before printing.",
+		"files": {
+			"gpx": "oslo/oslo-2026-triple/route.gpx"
 		}
 	},
 	{
@@ -83,7 +98,7 @@
 		"curation": "community",
 		"year": 2027,
 		"distanceKm": 5,
-		"title": "Helsinki City Marathon 2027 course",
+		"title": "Helsinki City 5 2027 5K course",
 		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicity5/",
 		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/11",
 		"license": "MIT",
@@ -99,7 +114,7 @@
 		"curation": "community",
 		"year": 2027,
 		"distanceKm": 21.0975,
-		"title": "Helsinki City Marathon 2027 course",
+		"title": "Helsinki City Half 2027 half marathon course",
 		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicityhalf-halfmarathon/",
 		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/15",
 		"license": "MIT",
@@ -107,6 +122,111 @@
 		"notes": "",
 		"files": {
 			"gpx": "helsinki/helsinki-2027-half/route.gpx"
+		}
+	},
+	{
+		"id": "tokyo-2026-marathon",
+		"raceId": "tokyo",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Tokyo Marathon 2026 course",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/tokyo-2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.291 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "tokyo/tokyo-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "london-2026-marathon",
+		"raceId": "london",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "London Marathon 2026 course (blue start)",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/london-2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.247 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Blue-start course. This is not the incomplete OpenStreetMap relation. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "london/london-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "sydney-2026-marathon",
+		"raceId": "sydney",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Sydney Marathon 2026 course",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/sydney_2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.242 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "sydney/sydney-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "berlin-2026-marathon",
+		"raceId": "berlin",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Berlin Marathon 2026 course",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/berlin-2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.182 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "berlin/berlin-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "chicago-2026-marathon",
+		"raceId": "chicago",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Chicago Marathon 2026 course",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/chicago-2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.193 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "chicago/chicago-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "new-york-2026-marathon",
+		"raceId": "new-york",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "New York City Marathon 2026 course (blue start)",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/nyc-2026-blue.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.573 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Blue-start course with the source-described 2026 Bronx reroute; other start colours are not included. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "new-york/new-york-2026-marathon/route.gpx"
+		}
+	},
+	{
+		"id": "paris-2026-marathon",
+		"raceId": "paris",
+		"curation": "maintainer",
+		"year": 2026,
+		"distanceKm": 42.195,
+		"title": "Paris Marathon 2026 course",
+		"sourceUrl": "https://github.com/logie4000/cheersquad/blob/78156f867e210fd6332e110323189f3bcce3cb21/internal/races/data/paris-2026.gpx",
+		"license": "GNU General Public License v3.0 (GPL-3.0)",
+		"attribution": "logie4000/cheersquad contributors; original GPX credits retained in the file.",
+		"notes": "Imported from cheersquad on 13 Nov 2026 (42.180 km). Edition is as labelled by the source, not independently verified against the organizer. Timestamps removed; coordinates and elevation unchanged. Some source points are up to 1.33 km apart; fine bends may be missing. This is the annual Paris Marathon, not the Olympic Marathon Pour Tous. Licence and provenance: public/community/COURSE-SOURCES.txt and public/community/GPL-3.0.txt.",
+		"files": {
+			"gpx": "paris/paris-2026-marathon/route.gpx"
 		}
 	}
 ]
