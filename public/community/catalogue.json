@@ -45,7 +45,7 @@
 			"gpx": "oslo/oslo-2026-marathon/route.gpx"
 		}
 	},
-   {
+	{
 		"id": "oslo-2026-10k",
 		"raceId": "oslo",
 		"curation": "community",
@@ -86,11 +86,27 @@
 		"title": "Helsinki City Marathon 2026 course",
 		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicity5/",
 		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/11",
-    "license": "MIT",
+		"license": "MIT",
 		"attribution": "No",
-    "notes": "",
+		"notes": "",
 		"files": {
 			"gpx": "helsinki/helsinki-2026-5k/route.gpx"
 		}
-  }
+	},
+	{
+		"id": "helsinki-2026-half",
+		"raceId": "helsinki",
+		"curation": "community",
+		"year": 2026,
+		"distanceKm": 21.0975,
+		"title": "Helsinki City Marathon 2026 course",
+		"sourceUrl": "https://helsinkicityrun.fi/en/helsinkicityhalf-halfmarathon/",
+		"reviewUrl": "https://github.com/Bearwick/marathon-medal-map-display/issues/15",
+		"license": "MIT",
+		"attribution": "No",
+		"notes": "",
+		"files": {
+			"gpx": "helsinki/helsinki-2026-half/route.gpx"
+		}
+	}
 ]
