@@ -87,3 +87,53 @@ test('offers the bundled Oslo half marathon course', async ({ page }) => {
   await page.click('[data-community="oslo-2026-half"]');
   await expect(page.locator('.track-card')).toContainText('21.37 km');
 });
+
+test('loads each added 2026 marathon from the known-course picker', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  for (const [raceId, km] of [
+    ['tokyo', '42.29'], ['london', '42.25'], ['sydney', '42.24'],
+    ['berlin', '42.18'], ['chicago', '42.19'], ['new-york', '42.57'], ['paris', '42.18'],
+  ]) {
+    await test.step(raceId, async () => {
+      await page.getByRole('tab', { name: /The plate/ }).click();
+      await page.selectOption('[data-field="raceId"]', raceId);
+      await expect(page.locator('#course-hint')).toContainText('course map');
+      await page.getByRole('tab', { name: /The map/ }).click();
+      await expect(page.locator('.catalogue-warnings')).toHaveCount(0);
+      await page.click(`[data-community="${raceId}-2026-marathon"]`);
+      await expect(page.locator('.selected-course')).toContainText('GPL-3.0');
+      await expect(page.locator('.track-card')).toContainText(`${km} km`);
+      await expect(page.locator('#frame-summary')).toContainText('1 mm ≈');
+    });
+  }
+});
+
+test('loads shorter courses and the exact combined Oslo challenge distance', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  for (const [raceId, distanceId, courseId] of [
+    ['oslo', '10k', 'oslo-2026-10k'], ['oslo', 'half', 'oslo-2026-half'],
+    ['helsinki', '5k', 'helsinki-2027-5k'], ['helsinki', 'half', 'helsinki-2027-half'],
+    ['oslo', 'custom', 'oslo-2026-triple'],
+  ]) {
+    await test.step(courseId, async () => {
+      await page.getByRole('tab', { name: /The plate/ }).click();
+      await page.selectOption('[data-field="raceId"]', raceId);
+      await page.selectOption('[data-field="distanceId"]', distanceId);
+      if (distanceId === 'custom') {
+        await page.fill('[data-field="customKm"]', '73.2925');
+        expect(await page.locator('[data-field="customKm"]').evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(true);
+      }
+      await expect(page.locator('#course-hint')).toContainText('course map');
+      await page.getByRole('tab', { name: /The map/ }).click();
+      await expect(page.locator('[data-community]')).toHaveCount(1);
+      await page.click(`[data-community="${courseId}"]`);
+      await expect(page.locator('.selected-course')).toBeVisible();
+      await expect(page.locator('.track-card')).toContainText('km');
+      await expect(page.locator('#frame-summary')).toContainText('1 mm ≈');
+    });
+  }
+});

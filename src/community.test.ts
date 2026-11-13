@@ -42,6 +42,62 @@ describe('curated community catalogue', () => {
       expect(Math.abs(track.km - item.distanceKm) / item.distanceKm, item.id).toBeLessThan(0.03);
     }
   });
+  it('offers the added 2026 marathons with source credits and continuous tracks in the correct cities', () => {
+    const catalogue = parseCatalogue(JSON.parse(readFileSync('public/community/catalogue.json', 'utf8')));
+    const cities = [
+      ['tokyo', 35.6, 35.8, 139.6, 139.9],
+      ['london', 51.4, 51.6, -0.2, 0.1],
+      ['sydney', -34, -33.7, 151.1, 151.3],
+      ['berlin', 52.4, 52.6, 13.2, 13.5],
+      ['chicago', 41.7, 42, -87.8, -87.5],
+      ['new-york', 40.5, 40.9, -74.1, -73.8],
+      ['paris', 48.7, 49, 2.2, 2.5],
+    ] as const;
+    for (const [raceId, minLat, maxLat, minLon, maxLon] of cities) {
+      const design = { ...initialDesign(), raceId, date: '2026-01-01' };
+      const course = matchingCourses(catalogue, design).find((entry) => entry.id === `${raceId}-2026-marathon`);
+      expect(course, raceId).toBeDefined();
+      expect(course!.year).toBe(2026);
+      expect(course!.curation).toBe('maintainer');
+      expect(course!.sourceUrl).toContain('/78156f867e210fd6332e110323189f3bcce3cb21/');
+      expect(course!.license).toContain('GPL-3.0');
+      const xml = readFileSync(resolve('public/community', course!.files.gpx!), 'utf8');
+      expect(xml).toContain('../../GPL-3.0.txt');
+      expect(xml).toContain('GNU GENERAL PUBLIC LICENSE');
+      expect(xml).toContain(course!.sourceUrl);
+      const track = parseGpx(xml, course!.title);
+      expect(track.segments, raceId).toHaveLength(1);
+      for (const [lat, lon] of track.segments[0]) {
+        expect(lat, raceId).toBeGreaterThanOrEqual(minLat);
+        expect(lat, raceId).toBeLessThanOrEqual(maxLat);
+        expect(lon, raceId).toBeGreaterThanOrEqual(minLon);
+        expect(lon, raceId).toBeLessThanOrEqual(maxLon);
+      }
+    }
+    expect(readFileSync('public/community/GPL-3.0.txt', 'utf8')).toContain('GNU GENERAL PUBLIC LICENSE');
+  });
+  it('matches each bundled shorter distance without offering its marathon instead', () => {
+    const catalogue = parseCatalogue(JSON.parse(readFileSync('public/community/catalogue.json', 'utf8')));
+    for (const [raceId, distanceId, id] of [
+      ['oslo', '10k', 'oslo-2026-10k'], ['oslo', 'half', 'oslo-2026-half'],
+      ['helsinki', '5k', 'helsinki-2027-5k'], ['helsinki', 'half', 'helsinki-2027-half'],
+    ]) {
+      expect(matchingCourses(catalogue, { ...initialDesign(), raceId, distanceId }).map((entry) => entry.id)).toEqual([id]);
+    }
+  });
+  it('combines Oslotrippelen in race order without changing points or connecting separate races', () => {
+    const catalogue = parseCatalogue(JSON.parse(readFileSync('public/community/catalogue.json', 'utf8')));
+    const [triple] = matchingCourses(catalogue, { ...initialDesign(), distanceId: 'custom', customKm: '73.2925' });
+    expect(triple.id).toBe('oslo-2026-triple');
+    const combined = parseGpx(readFileSync(resolve('public/community', triple.files.gpx!), 'utf8'), triple.title);
+    const components = ['marathon', 'half', '10k'].map((distance) => parseGpx(
+      readFileSync(`public/community/oslo/oslo-2026-${distance}/route.gpx`, 'utf8'), distance,
+    ));
+    expect(combined.segments).toEqual(components.flatMap((component) => component.segments));
+    expect(combined.km).toBeCloseTo(components.reduce((sum, component) => sum + component.km, 0), 8);
+    expect(combined.points).toBe(components.reduce((sum, component) => sum + component.points, 0));
+    expect(matchingCourses(catalogue, { ...initialDesign(), distanceId: 'custom', customKm: '73.3' })).toEqual([]);
+  });
   it('matches race and official distance, ranking the exact edition before older and newer ones', () => {
     const edition = (year: number) => ({ ...course, id: `oslo-${year}`, year, files: { gpx: `oslo/oslo-${year}/route.gpx` } });
     const older = edition(2024), old = edition(2025), newer = edition(2027);
